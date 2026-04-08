@@ -3,276 +3,1592 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vladimir Vladimirov | QA HUB v6.1</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <title>QA HUB | Internal Documentation Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #000000;
-            --card: #0a0b10;
-            --accent: #06b6d4;
-            --success: #10b981;
-            --border: rgba(255, 255, 255, 0.08);
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-card: #1c2128;
+            --bg-elevated: #21262d;
+            --border-primary: #30363d;
+            --border-accent: #388bfd;
+            --text-primary: #e6edf3;
+            --text-secondary: #8b949e;
+            --text-muted: #6e7681;
+            --accent-blue: #58a6ff;
+            --accent-green: #3fb950;
+            --accent-orange: #d29922;
+            --accent-red: #f85149;
+            --accent-purple: #a371f7;
+            --accent-teal: #39d0d0;
+            --gradient-blue: linear-gradient(135deg, #1f6feb 0%, #58a6ff 100%);
+            --gradient-green: linear-gradient(135deg, #238636 0%, #3fb950 100%);
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
         }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg);
-            color: #94a3b8;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
             scroll-behavior: smooth;
         }
 
-        .mono { font-family: 'JetBrains Mono', monospace; }
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 15px;
+        }
 
-        /* Sidebar: Glass Control Panel */
+        /* Sidebar Navigation */
         .sidebar {
-            background: rgba(3, 3, 5, 0.9);
-            backdrop-filter: blur(12px);
-            border-right: 1px solid var(--border);
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-primary);
+            padding: 24px 0;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding: 0 24px 24px;
+            border-bottom: 1px solid var(--border-primary);
+            margin-bottom: 16px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--gradient-blue);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-subtitle {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 2px;
+        }
+
+        .nav-section {
+            padding: 8px 16px;
+        }
+
+        .nav-section-title {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            padding: 8px;
+            font-weight: 600;
         }
 
         .nav-link {
-            position: relative;
-            transition: all 0.2s ease;
-            color: #475569;
-            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.15s ease;
+            margin-bottom: 2px;
         }
-        .nav-link:hover { color: #fff; background: rgba(255,255,255,0.03); }
+
+        .nav-link:hover {
+            background: var(--bg-elevated);
+            color: var(--text-primary);
+        }
+
         .nav-link.active {
-            color: var(--accent);
-            background: rgba(6, 182, 212, 0.08);
+            background: rgba(88, 166, 255, 0.15);
+            color: var(--accent-blue);
         }
-        .nav-link.active::after {
+
+        .nav-icon {
+            width: 18px;
+            height: 18px;
+            opacity: 0.7;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            min-height: 100vh;
+        }
+
+        .header {
+            position: sticky;
+            top: 0;
+            background: rgba(13, 17, 23, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-primary);
+            padding: 16px 48px;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .breadcrumb-separator {
+            color: var(--border-primary);
+        }
+
+        .header-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .content-wrapper {
+            padding: 48px;
+            max-width: 1100px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--gradient-blue);
+            border-radius: var(--radius-lg);
+            padding: 48px;
+            margin-bottom: 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
             content: '';
             position: absolute;
-            right: 10px;
-            width: 4px;
-            height: 4px;
-            background: var(--accent);
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.08);
             border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent);
         }
 
-        /* Engineering Cards */
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: 20%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 17px;
+            opacity: 0.9;
+            max-width: 600px;
+            line-height: 1.7;
+        }
+
+        /* Section Styles */
+        .section {
+            margin-bottom: 56px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-primary);
+        }
+
+        .section-number {
+            width: 32px;
+            height: 32px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-blue);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .section h2 {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 32px 0 16px;
+            color: var(--text-primary);
+        }
+
+        .section h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin: 24px 0 12px;
+            color: var(--accent-blue);
+        }
+
+        .section p {
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        /* Cards */
         .card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            transition: border-color 0.3s ease;
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            margin-bottom: 16px;
         }
-        .card:hover { border-color: rgba(6, 182, 212, 0.4); }
 
-        .grid-bg { background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 30px 30px; }
-        
-        input[type="checkbox"] { accent-color: var(--accent); cursor: pointer; }
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
 
-        @media print { .no-print { display: none; } .lg\:ml-72 { margin-left: 0 !important; } }
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .card-icon.blue { background: rgba(88, 166, 255, 0.15); color: var(--accent-blue); }
+        .card-icon.green { background: rgba(63, 185, 80, 0.15); color: var(--accent-green); }
+        .card-icon.orange { background: rgba(210, 153, 34, 0.15); color: var(--accent-orange); }
+        .card-icon.purple { background: rgba(163, 113, 247, 0.15); color: var(--accent-purple); }
+        .card-icon.red { background: rgba(248, 81, 73, 0.15); color: var(--accent-red); }
+        .card-icon.teal { background: rgba(57, 208, 208, 0.15); color: var(--accent-teal); }
+
+        .card h5 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        @media (max-width: 900px) {
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Callout Boxes */
+        .callout {
+            border-radius: var(--radius-md);
+            padding: 20px 24px;
+            margin: 20px 0;
+            display: flex;
+            gap: 16px;
+        }
+
+        .callout-icon {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .callout-content {
+            flex: 1;
+        }
+
+        .callout-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+            font-size: 14px;
+        }
+
+        .callout-text {
+            font-size: 14px;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .callout.info {
+            background: rgba(88, 166, 255, 0.1);
+            border: 1px solid rgba(88, 166, 255, 0.2);
+        }
+        .callout.info .callout-icon { color: var(--accent-blue); }
+        .callout.info .callout-title { color: var(--accent-blue); }
+
+        .callout.warning {
+            background: rgba(210, 153, 34, 0.1);
+            border: 1px solid rgba(210, 153, 34, 0.2);
+        }
+        .callout.warning .callout-icon { color: var(--accent-orange); }
+        .callout.warning .callout-title { color: var(--accent-orange); }
+
+        .callout.success {
+            background: rgba(63, 185, 80, 0.1);
+            border: 1px solid rgba(63, 185, 80, 0.2);
+        }
+        .callout.success .callout-icon { color: var(--accent-green); }
+        .callout.success .callout-title { color: var(--accent-green); }
+
+        .callout.tip {
+            background: rgba(163, 113, 247, 0.1);
+            border: 1px solid rgba(163, 113, 247, 0.2);
+        }
+        .callout.tip .callout-icon { color: var(--accent-purple); }
+        .callout.tip .callout-title { color: var(--accent-purple); }
+
+        /* Lists */
+        ul, ol {
+            padding-left: 24px;
+            margin: 16px 0;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        li::marker {
+            color: var(--accent-blue);
+        }
+
+        /* Tables */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th {
+            background: var(--bg-elevated);
+            text-align: left;
+            padding: 14px 16px;
+            font-weight: 600;
+            border-bottom: 2px solid var(--border-primary);
+            color: var(--text-primary);
+        }
+
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border-primary);
+            color: var(--text-secondary);
+        }
+
+        tr:hover td {
+            background: var(--bg-card);
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            margin: 16px 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg-elevated);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: var(--accent-blue);
+        }
+
+        /* Tags / Labels */
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .tag.blue { background: rgba(88, 166, 255, 0.15); color: var(--accent-blue); }
+        .tag.green { background: rgba(63, 185, 80, 0.15); color: var(--accent-green); }
+        .tag.orange { background: rgba(210, 153, 34, 0.15); color: var(--accent-orange); }
+        .tag.red { background: rgba(248, 81, 73, 0.15); color: var(--accent-red); }
+        .tag.purple { background: rgba(163, 113, 247, 0.15); color: var(--accent-purple); }
+
+        /* Tool Cards */
+        .tool-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .tool-card:hover {
+            border-color: var(--border-accent);
+            transform: translateY(-2px);
+        }
+
+        .tool-name {
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tool-description {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Bug Template */
+        .bug-template {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+
+        .bug-template-header {
+            background: var(--bg-elevated);
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-primary);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bug-template-body {
+            padding: 20px;
+        }
+
+        .template-field {
+            margin-bottom: 16px;
+        }
+
+        .template-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .template-value {
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-sm);
+            padding: 12px 14px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Philosophy Pillars */
+        .pillar {
+            position: relative;
+            padding-left: 20px;
+            border-left: 3px solid var(--accent-blue);
+            margin: 24px 0;
+        }
+
+        .pillar h4 {
+            margin-top: 0;
+            color: var(--text-primary);
+        }
+
+        .pillar p {
+            font-size: 14px;
+            margin-bottom: 0;
+        }
+
+        /* Workflow Steps */
+        .workflow-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .step-number {
+            width: 28px;
+            height: 28px;
+            background: var(--gradient-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .step-description {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* Severity Matrix */
+        .severity-matrix {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .severity-item {
+            padding: 16px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-primary);
+        }
+
+        .severity-item.critical {
+            background: rgba(248, 81, 73, 0.08);
+            border-color: rgba(248, 81, 73, 0.3);
+        }
+
+        .severity-item.high {
+            background: rgba(210, 153, 34, 0.08);
+            border-color: rgba(210, 153, 34, 0.3);
+        }
+
+        .severity-item.medium {
+            background: rgba(88, 166, 255, 0.08);
+            border-color: rgba(88, 166, 255, 0.3);
+        }
+
+        .severity-item.low {
+            background: rgba(63, 185, 80, 0.08);
+            border-color: rgba(63, 185, 80, 0.3);
+        }
+
+        .severity-label {
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+
+        .severity-item.critical .severity-label { color: var(--accent-red); }
+        .severity-item.high .severity-label { color: var(--accent-orange); }
+        .severity-item.medium .severity-label { color: var(--accent-blue); }
+        .severity-item.low .severity-label { color: var(--accent-green); }
+
+        .severity-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 64px;
+            padding: 32px 0;
+            border-top: 1px solid var(--border-primary);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .main-content {
+                margin-left: 0;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-primary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
     </style>
 </head>
-<body class="flex grid-bg">
-
-    <aside class="fixed left-0 top-0 h-screen w-72 sidebar hidden lg:flex flex-col z-50 no-print">
-        <div class="p-8 border-b border-white/5">
-            <h1 class="text-white font-black text-xl tracking-tighter italic">V. VLADIMIROV</h1>
-            <p class="text-[9px] uppercase tracking-[0.4em] text-cyan-500 font-bold mt-1">QA Engineering Hub</p>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <div class="logo-icon">QA</div>
+                <div>
+                    <div class="logo-text">QA HUB</div>
+                    <div class="logo-subtitle">Documentation Portal</div>
+                </div>
+            </div>
         </div>
-        
-        <nav class="flex-1 overflow-y-auto p-4 py-6 space-y-1 text-[11px] font-bold uppercase tracking-wider">
-            <a href="#intro" class="nav-link flex items-center gap-3 p-3"><i data-lucide="shield" class="w-4 h-4"></i> 01 Philosophy</a>
-            <a href="#strategy" class="nav-link flex items-center gap-3 p-3"><i data-lucide="layers" class="w-4 h-4"></i> 02 Strategy</a>
-            <a href="#api" class="nav-link flex items-center gap-3 p-3"><i data-lucide="webhook" class="w-4 h-4"></i> 03 API Testing</a>
-            <a href="#risk" class="nav-link flex items-center gap-3 p-3"><i data-lucide="alert-octagon" class="w-4 h-4"></i> 04 Risk Matrix</a>
-            <a href="#bugs" class="nav-link flex items-center gap-3 p-3"><i data-lucide="bug" class="w-4 h-4"></i> 05 Bug Standards</a>
-            <a href="#debugging" class="nav-link flex items-center gap-3 p-3"><i data-lucide="search" class="w-4 h-4"></i> 06 Investigation</a>
-            <a href="#tools" class="nav-link flex items-center gap-3 p-3"><i data-lucide="cpu" class="w-4 h-4"></i> 07 Toolkit</a>
-            <a href="#checklists" class="nav-link flex items-center gap-3 p-3"><i data-lucide="check-square" class="w-4 h-4"></i> 08 Checklists</a>
-            <a href="#metrics" class="nav-link flex items-center gap-3 p-3"><i data-lucide="bar-chart-3" class="w-4 h-4"></i> 09 Metrics</a>
+
+        <nav class="nav-section">
+            <div class="nav-section-title">Getting Started</div>
+            <a href="#introduction" class="nav-link active">
+                <span>📋</span> Introduction
+            </a>
+            <a href="#testing-strategy" class="nav-link">
+                <span>🎯</span> Testing Strategy
+            </a>
+            <a href="#test-documentation" class="nav-link">
+                <span>📝</span> Test Documentation
+            </a>
         </nav>
 
-        <div class="p-6 border-t border-white/5">
-            <button onclick="window.print()" class="w-full py-3 bg-white/5 border border-white/10 text-white rounded-lg text-[10px] font-bold hover:bg-white hover:text-black transition-all">
-                EXPORT SYSTEM PDF
-            </button>
-        </div>
+        <nav class="nav-section">
+            <div class="nav-section-title">Standards</div>
+            <a href="#bug-reporting" class="nav-link">
+                <span>🐛</span> Bug Reporting
+            </a>
+            <a href="#tools-workflow" class="nav-link">
+                <span>🛠️</span> Tools & Workflow
+            </a>
+            <a href="#debugging" class="nav-link">
+                <span>🔍</span> Debugging
+            </a>
+        </nav>
+
+        <nav class="nav-section">
+            <div class="nav-section-title">Knowledge Base</div>
+            <a href="#documentation-strategy" class="nav-link">
+                <span>📚</span> Documentation Strategy
+            </a>
+            <a href="#release-notes" class="nav-link">
+                <span>🚀</span> Release Notes
+            </a>
+        </nav>
+
+        <nav class="nav-section">
+            <div class="nav-section-title">Culture</div>
+            <a href="#qa-mindset" class="nav-link">
+                <span>🧠</span> QA Mindset
+            </a>
+            <a href="#collaboration" class="nav-link">
+                <span>🤝</span> Collaboration
+            </a>
+        </nav>
     </aside>
 
-    <main class="lg:ml-72 w-full min-h-screen pb-32 px-6 md:px-16">
-        
-        <header id="intro" class="py-24">
-            <h1 class="text-6xl font-black text-white mb-4 tracking-tighter">Vladimir Vladimirov <span class="text-cyan-500">QA HUB</span></h1>
-            <div class="flex items-center gap-6">
-                <p class="text-[11px] uppercase tracking-[0.5em] font-bold text-slate-500">Quality as a Strategy</p>
-                <div class="h-px w-20 bg-white/10"></div>
-                <p class="text-[11px] uppercase tracking-[0.5em] font-bold text-slate-500">4+ Years Engineering Excellence</p>
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="header">
+            <div class="breadcrumb">
+                <span>QA HUB</span>
+                <span class="breadcrumb-separator">/</span>
+                <span>Documentation</span>
             </div>
-            
-            <div class="mt-16 grid md:grid-cols-3 gap-8">
-                <div class="space-y-4">
-                    <h4 class="text-white font-bold uppercase text-xs tracking-widest text-cyan-400">Risk Reduction</h4>
-                    <p class="text-xs leading-relaxed italic text-slate-300">"Quality is not an act, it is a habit."</p>
-                    <p class="text-xs leading-relaxed">QA is not about finding bugs—it is about providing the data required to make informed decisions on deployment safety.</p>
-                </div>
-                <div class="space-y-4">
-                    <h4 class="text-white font-bold uppercase text-xs tracking-widest text-cyan-400">Early Involvement</h4>
-                    <p class="text-xs leading-relaxed">I integrate during PRD and Design reviews to find logical contradictions before they become expensive code.</p>
-                </div>
-                <div class="space-y-4">
-                    <h4 class="text-white font-bold uppercase text-xs tracking-widest text-cyan-400">Collaboration</h4>
-                    <p class="text-xs leading-relaxed">I support developers with actionable logs, trace IDs, and reproduction environments to minimize fix cycles.</p>
-                </div>
+            <div class="header-meta">
+                <span>Last updated: 2024</span>
+                <span>•</span>
+                <span>v2.0</span>
             </div>
         </header>
 
-        <section id="strategy" class="py-20 border-t border-white/5">
-            <h2 class="text-xs font-black text-cyan-500 uppercase tracking-widest mb-12">02 / Strategy & Pyramid</h2>
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="space-y-6">
-                    <h3 class="text-2xl font-bold text-white">The Distribution</h3>
-                    <ul class="space-y-4 text-xs">
-                        <li class="flex items-center gap-4"><span class="w-24 text-cyan-500 font-bold uppercase">E2E</span> <div class="h-2 flex-1 bg-slate-800 rounded-full"><div class="h-full w-1/5 bg-cyan-500 rounded-full"></div></div> <span class="text-slate-500">10%</span></li>
-                        <li class="flex items-center gap-4"><span class="w-24 text-emerald-500 font-bold uppercase">Integration</span> <div class="h-2 flex-1 bg-slate-800 rounded-full"><div class="h-full w-2/5 bg-emerald-500 rounded-full"></div></div> <span class="text-slate-500">30%</span></li>
-                        <li class="flex items-center gap-4"><span class="w-24 text-slate-400 font-bold uppercase">Unit</span> <div class="h-2 flex-1 bg-slate-800 rounded-full"><div class="h-full w-4/5 bg-slate-500 rounded-full"></div></div> <span class="text-slate-500">60%</span></li>
-                    </ul>
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="card p-6"><h5 class="text-white text-[10px] font-bold mb-2 uppercase">Regression</h5><p class="text-[10px] text-slate-500">Ensuring zero side-effects during feature expansion.</p></div>
-                    <div class="card p-6"><h5 class="text-white text-[10px] font-bold mb-2 uppercase">Exploratory</h5><p class="text-[10px] text-slate-500">Context-driven investigation of edge-case logic.</p></div>
+        <div class="content-wrapper">
+            <!-- Hero Section -->
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>Welcome to QA HUB</h1>
+                    <p>Your central resource for quality assurance best practices, testing guidelines, and knowledge sharing. Built by QA engineers, for QA engineers — and everyone who cares about shipping quality software.</p>
                 </div>
             </div>
-        </section>
 
-        <section id="api" class="py-20 border-t border-white/5">
-            <h2 class="text-xs font-black text-cyan-500 uppercase tracking-widest mb-12">03 / API Guidelines</h2>
-            <div class="card overflow-hidden">
-                <table class="w-full text-left text-[11px] mono">
-                    <thead class="bg-white/5 text-slate-500 uppercase">
-                        <tr><th class="p-5">HTTP Code</th><th class="p-5">Validation Focus</th></tr>
-                    </thead>
-                    <tbody class="divide-y divide-white/5 text-slate-400">
-                        <tr><td class="p-5 text-emerald-500 font-bold">200/201 Success</td><td class="p-5 italic">Schema consistency & Data persistence in DB.</td></tr>
-                        <tr><td class="p-5 text-yellow-500 font-bold">400/422 Validation</td><td class="p-5 italic">Meaningful localized error messages for clients.</td></tr>
-                        <tr><td class="p-5 text-red-500 font-bold">401/403 Auth</td><td class="p-5 italic">Verify JWT expiry and RBAC permissions.</td></tr>
-                        <tr><td class="p-5 text-purple-500 font-bold">500/503 Logic</td><td class="p-5 italic">TraceID investigation in Grafana; verify retry logic.</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <section id="risk" class="py-20 border-t border-white/5">
-            <h2 class="text-xs font-black text-cyan-500 uppercase tracking-widest mb-12">04 / Risk Intelligence</h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="card p-8 border-l-4 border-l-red-500/50">
-                    <h4 class="text-white font-bold text-sm uppercase mb-4">Critical Risk Areas</h4>
-                    <p class="text-xs text-slate-400 leading-relaxed mb-4">Concurrency failures in multi-thread processing and 3rd party API timeouts (Circuit Breakers).</p>
-                    <div class="p-4 bg-black/40 rounded border border-white/5 text-[10px] mono">BLOCKER: Any bug affecting revenue-generating flows.</div>
+            <!-- Section 1: Introduction -->
+            <section class="section" id="introduction">
+                <div class="section-header">
+                    <div class="section-number">01</div>
+                    <h2>Introduction</h2>
                 </div>
-                <div class="space-y-4">
-                    <h4 class="text-white font-bold text-sm uppercase">Severity Matrix</h4>
-                    <div class="grid grid-cols-3 gap-2 text-[9px] text-center uppercase font-bold">
-                        <div class="p-4 bg-slate-900 text-slate-700">Low</div>
-                        <div class="p-4 bg-slate-900 text-slate-600">Med</div>
-                        <div class="p-4 bg-yellow-500/10 text-yellow-500">High</div>
-                        <div class="p-4 bg-slate-900 text-slate-600">Minor</div>
-                        <div class="p-4 bg-orange-500/10 text-orange-500">Major</div>
-                        <div class="p-4 bg-red-600 text-white">Critical</div>
+
+                <p>Quality Assurance isn't just about finding bugs — it's about building confidence in the product we deliver. This documentation captures our collective knowledge, standards, and practices that help us maintain high-quality software across all teams.</p>
+
+                <h3>Our QA Philosophy</h3>
+
+                <div class="pillar">
+                    <h4>Risk Reduction Over Bug Counting</h4>
+                    <p>We don't measure success by the number of bugs found. Our goal is to reduce the risk of defects reaching production. A well-designed test strategy that prevents issues is worth more than catching them later.</p>
+                </div>
+
+                <div class="pillar">
+                    <h4>Shift-Left: Early Involvement Matters</h4>
+                    <p>The earlier we engage in the development process, the cheaper and faster defects are to fix. QA participates in requirements discussions, design reviews, and sprint planning — not just at the end of the cycle.</p>
+                </div>
+
+                <div class="pillar">
+                    <h4>Collaboration is Key</h4>
+                    <p>Quality is everyone's responsibility. We work alongside developers, product managers, and stakeholders. We're partners in delivery, not gatekeepers blocking releases.</p>
+                </div>
+
+                <div class="callout success">
+                    <div class="callout-icon">✓</div>
+                    <div class="callout-content">
+                        <div class="callout-title">Core Principle</div>
+                        <p class="callout-text">Quality is built in, not tested in. Testing validates that quality exists; it doesn't create it.</p>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section id="bugs" class="py-20 border-t border-white/5">
-            <h2 class="text-xs font-black text-cyan-500 uppercase tracking-widest mb-12">05 / Bug Standards</h2>
-            <div class="card p-8 bg-slate-950/40 border-cyan-500/10">
-                <div class="mono text-[11px] leading-relaxed">
-                    <p class="text-white font-bold mb-4"># [SERVICE] - BUG TITLE - [ENV]</p>
-                    <p class="text-slate-500 mb-2">**Steps to Reproduce:**</p>
-                    <p class="text-cyan-400">1. Login > 2. Open /settings > 3. Clear cache</p>
-                    <p class="text-slate-500 mt-4 mb-2">**Actual Result:**</p>
-                    <p class="text-red-400">500 Error; UI hangs indefinitely.</p>
-                    <p class="text-slate-500 mt-4">**Trace ID:** <span class="text-emerald-500">staging_8821_vv</span></p>
+            <!-- Section 2: Testing Strategy -->
+            <section class="section" id="testing-strategy">
+                <div class="section-header">
+                    <div class="section-number">02</div>
+                    <h2>Testing Strategy</h2>
                 </div>
-            </div>
-        </section>
 
-        <section id="debugging" class="py-20 border-t border-white/5">
-            <h2 class="text-xs font-black text-cyan-500 uppercase tracking-widest mb-12">06 / Investigation Loop</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="p-4 border-l border-cyan-500 text-[10px]">
-                    <h5 class="text-white font-bold uppercase mb-1">1. Frontend</h5>
-                    <p>Check browser console/network tab for UI-specific crashes.</p>
+                <p>A solid testing strategy balances coverage, time, and risk. We don't aim to test everything — we aim to test the right things at the right time.</p>
+
+                <h3>Testing Types</h3>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon blue">🎯</div>
+                            <div>
+                                <h5>Functional Testing</h5>
+                            </div>
+                        </div>
+                        <p>Validates that features work according to requirements. Covers business logic, user workflows, and acceptance criteria. This is our bread and butter.</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon purple">🔄</div>
+                            <div>
+                                <h5>Regression Testing</h5>
+                            </div>
+                        </div>
+                        <p>Ensures that new changes haven't broken existing functionality. Critical before releases. Automate what you can; prioritize high-risk areas for manual regression.</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon green">💨</div>
+                            <div>
+                                <h5>Smoke / Sanity Testing</h5>
+                            </div>
+                        </div>
+                        <p><strong>Smoke:</strong> Quick checks that critical paths work after deployment. <strong>Sanity:</strong> Focused verification of specific changes. Both are gatekeepers before deeper testing.</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon orange">🔗</div>
+                            <div>
+                                <h5>End-to-End Testing</h5>
+                            </div>
+                        </div>
+                        <p>Tests complete user journeys across the system. Covers integration points, data flow, and real-world scenarios. Expensive to maintain — use sparingly for critical paths.</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon teal">🔬</div>
+                            <div>
+                                <h5>Exploratory Testing</h5>
+                            </div>
+                        </div>
+                        <p>Unscripted, creative testing based on experience and intuition. Great for finding edge cases that scripted tests miss. Document your findings as you go.</p>
+                    </div>
                 </div>
-                <div class="p-4 border-l border-emerald-500 text-[10px]">
-                    <h5 class="text-white font-bold uppercase mb-1">2. API</h5>
-                    <p>Isolate the request in Postman to confirm server-side failure.</p>
+
+                <h3>Best Practices</h3>
+
+                <ul>
+                    <li><strong>Prioritize based on risk:</strong> Not all features carry equal risk. Focus testing effort on high-impact, frequently-used, or recently-changed areas.</li>
+                    <li><strong>Cover the spectrum:</strong> Happy path + edge cases + negative scenarios. Users don't always follow the happy path.</li>
+                    <li><strong>Keep tests reproducible and independent:</strong> Each test should be able to run in isolation without depending on other tests or external state.</li>
+                    <li><strong>Test data matters:</strong> Use realistic data sets. Production-like data catches issues that "test123" never will.</li>
+                    <li><strong>Balance automation and manual:</strong> Automate repetitive checks; keep exploratory and complex scenarios manual.</li>
+                </ul>
+
+                <div class="callout tip">
+                    <div class="callout-icon">💡</div>
+                    <div class="callout-content">
+                        <div class="callout-title">Pro Tip</div>
+                        <p class="callout-text">When time is limited, focus on: (1) new features, (2) areas with recent changes, (3) historically buggy modules. This risk-based approach maximizes coverage impact.</p>
+                    </div>
                 </div>
-                <div class="p-4 border-l border-purple-500 text-[10px]">
-                    <h5 class="text-white font-bold uppercase mb-1">3. Logs</h5>
-                    <p>Search for the Trace ID in Grafana to find the stack trace.</p>
+            </section>
+
+            <!-- Section 3: Test Documentation -->
+            <section class="section" id="test-documentation">
+                <div class="section-header">
+                    <div class="section-number">03</div>
+                    <h2>Test Scenarios & Documentation</h2>
                 </div>
-                <div class="p-4 border-l border-orange-500 text-[10px]">
-                    <h5 class="text-white font-bold uppercase mb-1">4. Database</h5>
-                    <p>Query DBeaver to ensure the data state matches the API claim.</p>
+
+                <h3>Test Scenarios vs Test Cases</h3>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Aspect</th>
+                                <th>Test Scenario</th>
+                                <th>Test Case</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Granularity</strong></td>
+                                <td>High-level, describes what to test</td>
+                                <td>Detailed, describes how to test</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Example</strong></td>
+                                <td>"Verify user login functionality"</td>
+                                <td>Step-by-step instructions with specific data</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Maintenance</strong></td>
+                                <td>Easier to maintain, less detail to update</td>
+                                <td>Higher maintenance, needs regular updates</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Best for</strong></td>
+                                <td>Agile teams, frequently changing features</td>
+                                <td>Stable features, compliance requirements</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-            </div>
-        </section>
 
-        <section id="tools" class="py-20 border-t border-white/5">
-            <h2 class="text-xs font-black text-cyan-500 uppercase tracking-widest mb-12">07 / Tools & Frameworks</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div class="card p-8 text-center"><p class="text-cyan-500 font-black text-lg">Playwright</p><p class="text-[9px] uppercase mt-2">Automation</p></div>
-                <div class="card p-8 text-center"><p class="text-emerald-500 font-black text-lg">Postman</p><p class="text-[9px] uppercase mt-2">API/Security</p></div>
-                <div class="card p-8 text-center"><p class="text-purple-500 font-black text-lg">Grafana</p><p class="text-[9px] uppercase mt-2">Monitoring</p></div>
-                <div class="card p-8 text-center"><p class="text-orange-500 font-black text-lg">DBeaver</p><p class="text-[9px] uppercase mt-2">Persistence</p></div>
-            </div>
-        </section>
+                <div class="callout info">
+                    <div class="callout-icon">ℹ️</div>
+                    <div class="callout-content">
+                        <div class="callout-title">Practical Approach</div>
+                        <p class="callout-text">In practice, test scenarios are often documented directly in tickets (Jira). This keeps documentation close to the work and reduces duplication. Detailed test cases are reserved for critical paths or compliance needs.</p>
+                    </div>
+                </div>
 
-        <section id="checklists" class="py-20 border-t border-white/5">
-            <h2 class="text-xs font-black text-cyan-500 uppercase tracking-widest mb-12">08 / Readiness Check</h2>
-            <div class="grid md:grid-cols-2 gap-4">
-                <label class="card p-4 flex items-center gap-4 cursor-pointer hover:bg-white/5">
-                    <input type="checkbox"> <span class="text-xs">Smoke tests cleared on Pre-Prod</span>
-                </label>
-                <label class="card p-4 flex items-center gap-4 cursor-pointer hover:bg-white/5">
-                    <input type="checkbox"> <span class="text-xs">API Contract compatibility verified</span>
-                </label>
-                <label class="card p-4 flex items-center gap-4 cursor-pointer hover:bg-white/5">
-                    <input type="checkbox"> <span class="text-xs">DB migration scripts validated</span>
-                </label>
-                <label class="card p-4 flex items-center gap-4 cursor-pointer hover:bg-white/5">
-                    <input type="checkbox"> <span class="text-xs">Rollback procedure documented</span>
-                </label>
-            </div>
-        </section>
+                <h3>Test Case Structure</h3>
 
-        <section id="metrics" class="py-20 border-t border-white/5">
-            <h2 class="text-xs font-black text-cyan-500 uppercase tracking-widest mb-12">09 / Key Metrics</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
-                <div><p class="text-4xl font-black text-white">0%</p><p class="text-[9px] uppercase tracking-widest mt-4">P0 Leakage</p></div>
-                <div><p class="text-4xl font-black text-cyan-500">92%</p><p class="text-[9px] uppercase tracking-widest mt-4">Coverage</p></div>
-                <div><p class="text-4xl font-black text-white">< 2h</p><p class="text-[9px] uppercase tracking-widest mt-4">MTTD</p></div>
-                <div><p class="text-4xl font-black text-emerald-500">SLA</p><p class="text-[9px] uppercase tracking-widest mt-4">Compliance</p></div>
-            </div>
-        </section>
+                <div class="code-block">
+<strong>Test Case ID:</strong> TC-LOGIN-001
+<strong>Title:</strong> Verify successful login with valid credentials
 
-        <footer class="pt-40 pb-20 text-center border-t border-white/5">
-            <p class="text-[10px] uppercase font-black tracking-[1.5em] text-slate-800">Vladimir Vladimirov QA Engineering Hub</p>
-        </footer>
+<strong>Preconditions:</strong>
+• User account exists in the system
+• User is on the login page
+• User has valid email and password
 
+<strong>Steps:</strong>
+1. Enter valid email address in the email field
+2. Enter correct password in the password field
+3. Click the "Login" button
+
+<strong>Expected Result:</strong>
+• User is redirected to the dashboard
+• Welcome message displays user's name
+• Session is created (verify in browser dev tools)
+
+<strong>Test Data:</strong>
+• Email: testuser@example.com
+• Password: [stored in secure vault]
+                </div>
+
+                <h3>Example: E-commerce Checkout Scenarios</h3>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Scenario</th>
+                                <th>Type</th>
+                                <th>Priority</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Complete purchase with credit card</td>
+                                <td><span class="tag green">Happy Path</span></td>
+                                <td><span class="tag red">Critical</span></td>
+                            </tr>
+                            <tr>
+                                <td>Apply valid discount code at checkout</td>
+                                <td><span class="tag green">Happy Path</span></td>
+                                <td><span class="tag orange">High</span></td>
+                            </tr>
+                            <tr>
+                                <td>Checkout with empty cart</td>
+                                <td><span class="tag blue">Negative</span></td>
+                                <td><span class="tag blue">Medium</span></td>
+                            </tr>
+                            <tr>
+                                <td>Payment with expired card</td>
+                                <td><span class="tag blue">Negative</span></td>
+                                <td><span class="tag orange">High</span></td>
+                            </tr>
+                            <tr>
+                                <td>Checkout with max quantity (9999 items)</td>
+                                <td><span class="tag purple">Edge Case</span></td>
+                                <td><span class="tag blue">Medium</span></td>
+                            </tr>
+                            <tr>
+                                <td>Price change during checkout session</td>
+                                <td><span class="tag purple">Edge Case</span></td>
+                                <td><span class="tag orange">High</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Section 4: Bug Reporting -->
+            <section class="section" id="bug-reporting">
+                <div class="section-header">
+                    <div class="section-number">04</div>
+                    <h2>Bug Reporting Standards</h2>
+                </div>
+
+                <p>A well-written bug report saves everyone time. The goal is to provide enough context that anyone can reproduce and understand the issue without asking follow-up questions.</p>
+
+                <h3>Bug Report Template</h3>
+
+                <div class="bug-template">
+                    <div class="bug-template-header">
+                        <span>🐛</span> Bug Report Template
+                    </div>
+                    <div class="bug-template-body">
+                        <div class="template-field">
+                            <div class="template-label">Title</div>
+                            <div class="template-value">[Component/Feature] - Brief description of the issue<br><em>Example: [Checkout] - Payment fails silently when using Amex cards</em></div>
+                        </div>
+
+                        <div class="template-field">
+                            <div class="template-label">Steps to Reproduce</div>
+                            <div class="template-value">
+                                1. Navigate to the product page<br>
+                                2. Add item to cart<br>
+                                3. Proceed to checkout<br>
+                                4. Enter Amex card details<br>
+                                5. Click "Complete Purchase"
+                            </div>
+                        </div>
+
+                        <div class="template-field">
+                            <div class="template-label">Expected Result</div>
+                            <div class="template-value">Payment processes successfully and order confirmation displays</div>
+                        </div>
+
+                        <div class="template-field">
+                            <div class="template-label">Actual Result</div>
+                            <div class="template-value">Page refreshes without error message. Payment not processed. No order created in system.</div>
+                        </div>
+
+                        <div class="template-field">
+                            <div class="template-label">Environment</div>
+                            <div class="template-value">
+                                • Browser: Chrome 120.0.6099.109<br>
+                                • OS: macOS Sonoma 14.2<br>
+                                • Environment: Staging (staging.app.com)<br>
+                                • App Version: 2.4.1
+                            </div>
+                        </div>
+
+                        <div class="template-field">
+                            <div class="template-label">Attachments</div>
+                            <div class="template-value">
+                                • Screenshot of the checkout page<br>
+                                • Network tab showing failed API call<br>
+                                • Console errors (if any)<br>
+                                • Screen recording of reproduction
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Severity vs Priority</h3>
+
+                <p><strong>Severity</strong> measures the technical impact of the bug. <strong>Priority</strong> indicates how urgently it needs to be fixed based on business needs. A bug can be high severity but low priority (and vice versa).</p>
+
+                <div class="grid-2">
+                    <div>
+                        <h4>Severity Levels</h4>
+                        <div class="severity-matrix">
+                            <div class="severity-item critical">
+                                <div class="severity-label">S1 - Critical</div>
+                                <div class="severity-desc">System crash, data loss, security breach, complete feature failure</div>
+                            </div>
+                            <div class="severity-item high">
+                                <div class="severity-label">S2 - High</div>
+                                <div class="severity-desc">Major feature broken, no workaround available</div>
+                            </div>
+                            <div class="severity-item medium">
+                                <div class="severity-label">S3 - Medium</div>
+                                <div class="severity-desc">Feature partially working, workaround exists</div>
+                            </div>
+                            <div class="severity-item low">
+                                <div class="severity-label">S4 - Low</div>
+                                <div class="severity-desc">Minor issues, cosmetic defects, typos</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4>Priority Levels</h4>
+                        <div class="severity-matrix">
+                            <div class="severity-item critical">
+                                <div class="severity-label">P1 - Urgent</div>
+                                <div class="severity-desc">Fix immediately, blocks release or critical business</div>
+                            </div>
+                            <div class="severity-item high">
+                                <div class="severity-label">P2 - High</div>
+                                <div class="severity-desc">Fix in current sprint, significant impact</div>
+                            </div>
+                            <div class="severity-item medium">
+                                <div class="severity-label">P3 - Medium</div>
+                                <div class="severity-desc">Fix when possible, plan for upcoming sprint</div>
+                            </div>
+                            <div class="severity-item low">
+                                <div class="severity-label">P4 - Low</div>
+                                <div class="severity-desc">Nice to fix, backlog candidate</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Bug Reporting Best Practices</h3>
+
+                <div class="callout warning">
+                    <div class="callout-icon">⚠️</div>
+                    <div class="callout-content">
+                        <div class="callout-title">Avoid These Common Mistakes</div>
+                        <p class="callout-text">
+                            <strong>Vague titles:</strong> "Login doesn't work" → "Login fails with 500 error when password contains special characters"<br><br>
+                            <strong>Missing reproduction steps:</strong> Always include exact steps, even if they seem obvious<br><br>
+                            <strong>No environment info:</strong> "It works on my machine" is never helpful without context<br><br>
+                            <strong>Assuming reproducibility:</strong> Verify you can reproduce the bug before reporting
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Tools & Workflow -->
+            <section class="section" id="tools-workflow">
+                <div class="section-header">
+                    <div class="section-number">05</div>
+                    <h2>Tools & Workflow</h2>
+                </div>
+
+                <p>Our QA workflow integrates several tools, each serving a specific purpose. Understanding how they connect helps you investigate issues faster and document findings effectively.</p>
+
+                <div class="grid-3">
+                    <div class="tool-card">
+                        <div class="tool-name">
+                            <span class="card-icon blue" style="width: 28px; height: 28px; font-size: 14px;">📋</span>
+                            Jira
+                        </div>
+                        <div class="tool-description">Central hub for task tracking, bug reporting, and test documentation. Stories, bugs, and test scenarios live here. Use labels and components for organization.</div>
+                    </div>
+
+                    <div class="tool-card">
+                        <div class="tool-name">
+                            <span class="card-icon purple" style="width: 28px; height: 28px; font-size: 14px;">📖</span>
+                            Confluence
+                        </div>
+                        <div class="tool-description">Long-term documentation home. Test strategies, onboarding guides, and knowledge base articles. For content that outlives individual tickets.</div>
+                    </div>
+
+                    <div class="tool-card">
+                        <div class="tool-name">
+                            <span class="card-icon orange" style="width: 28px; height: 28px; font-size: 14px;">🔌</span>
+                            Postman / Swagger
+                        </div>
+                        <div class="tool-description">API testing and exploration. Validate endpoints, test edge cases, and verify response structures. Essential for backend validation.</div>
+                    </div>
+
+                    <div class="tool-card">
+                        <div class="tool-name">
+                            <span class="card-icon green" style="width: 28px; height: 28px; font-size: 14px;">⚙️</span>
+                            Jenkins
+                        </div>
+                        <div class="tool-description">CI/CD pipeline and environment management. Trigger deployments, run automated tests, and check build status before testing.</div>
+                    </div>
+
+                    <div class="tool-card">
+                        <div class="tool-name">
+                            <span class="card-icon teal" style="width: 28px; height: 28px; font-size: 14px;">📊</span>
+                            Grafana
+                        </div>
+                        <div class="tool-description">Logs monitoring and observability. Track API calls, errors, and system alerts. Your first stop when investigating production issues.</div>
+                    </div>
+
+                    <div class="tool-card">
+                        <div class="tool-name">
+                            <span class="card-icon red" style="width: 28px; height: 28px; font-size: 14px;">🗄️</span>
+                            DBeaver
+                        </div>
+                        <div class="tool-description">Database client for validation and investigation. Verify data integrity, check stored values, and investigate data-related bugs.</div>
+                    </div>
+                </div>
+
+                <h3>How They Connect</h3>
+
+                <div class="code-block">
+<strong>Typical Investigation Flow:</strong>
+
+Bug Reported in Jira
+        ↓
+Check UI Behavior → Browser Dev Tools
+        ↓
+Validate API Response → Postman / Swagger
+        ↓
+Review Logs & Errors → Grafana
+        ↓
+Check Data State → DBeaver
+        ↓
+Document Findings → Update Jira Ticket
+                </div>
+            </section>
+
+            <!-- Section 6: Debugging & Investigation -->
+            <section class="section" id="debugging">
+                <div class="section-header">
+                    <div class="section-number">06</div>
+                    <h2>Debugging & Investigation</h2>
+                </div>
+
+                <p>Effective debugging is about systematic elimination. Start from what you can observe (UI), then dig deeper into the stack until you find the root cause.</p>
+
+                <h3>Investigation Workflow</h3>
+
+                <div class="workflow-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <div class="step-title">Check UI Behavior</div>
+                        <div class="step-description">Reproduce the issue. Open browser dev tools. Check for console errors, failed network requests, and unexpected UI states. Screenshot everything relevant.</div>
+                    </div>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <div class="step-title">Validate API Responses</div>
+                        <div class="step-description">Use Postman or browser Network tab. Check request payloads, response codes, and response bodies. Compare expected vs actual data. Test the same request with different parameters.</div>
+                    </div>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <div class="step-title">Review Application Logs</div>
+                        <div class="step-description">Open Grafana. Search for errors around the timestamp of the issue. Look for stack traces, warning messages, and failed service calls. Note any correlation IDs or request IDs.</div>
+                    </div>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <div class="step-title">Check Database State</div>
+                        <div class="step-description">Use DBeaver to verify data. Is the record in the expected state? Are foreign keys correct? Did a transaction complete? Sometimes the bug is in the data, not the code.</div>
+                    </div>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <div class="step-title">Document Everything</div>
+                        <div class="step-description">Add all findings to the bug report: API responses, log snippets, database queries, screenshots. The more context, the faster the fix.</div>
+                    </div>
+                </div>
+
+                <div class="callout tip">
+                    <div class="callout-icon">💡</div>
+                    <div class="callout-content">
+                        <div class="callout-title">Investigation Tip</div>
+                        <p class="callout-text">When reporting a bug with investigation details, include: the API endpoint and response, relevant log entries (with timestamps), database state, and your hypothesis about the root cause. Developers appreciate bugs that come with diagnosis, not just symptoms.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Documentation Strategy -->
+            <section class="section" id="documentation-strategy">
+                <div class="section-header">
+                    <div class="section-number">07</div>
+                    <h2>Documentation Strategy</h2>
+                </div>
+
+                <p>We follow a hybrid documentation approach that balances practicality with long-term knowledge preservation.</p>
+
+                <h3>The Hybrid Approach</h3>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon blue">📋</div>
+                            <div>
+                                <h5>Ticket-Level Documentation</h5>
+                            </div>
+                        </div>
+                        <p>Test scenarios, acceptance criteria, and bug details live directly in Jira tickets. This keeps documentation close to the work, where people actually use it. Updated naturally as part of the workflow.</p>
+                        <br>
+                        <p><strong>Use for:</strong> Feature-specific tests, bug reproduction steps, sprint-level documentation</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon purple">📚</div>
+                            <div>
+                                <h5>Central Documentation</h5>
+                            </div>
+                        </div>
+                        <p>Confluence houses reusable knowledge: test strategies, onboarding guides, architecture overviews, and standards (like this QA Hub). Content that serves multiple teams and outlives individual features.</p>
+                        <br>
+                        <p><strong>Use for:</strong> Process documentation, team standards, cross-project knowledge</p>
+                    </div>
+                </div>
+
+                <div class="callout warning">
+                    <div class="callout-icon">⚠️</div>
+                    <div class="callout-content">
+                        <div class="callout-title">Documentation Principle</div>
+                        <p class="callout-text"><strong>"Documentation should be where people actually use it."</strong><br><br>
+                        Don't document test scenarios in Confluence if everyone tests from Jira. Don't put architecture decisions in Jira if they inform multiple projects.<br><br>
+                        <strong>"Outdated documentation is worse than no documentation."</strong><br><br>
+                        If you can't commit to maintaining it, don't create it. Misleading documentation causes bugs.</p>
+                    </div>
+                </div>
+
+                <h3>What Goes Where?</h3>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Content Type</th>
+                                <th>Location</th>
+                                <th>Reason</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Test scenarios for a user story</td>
+                                <td>Jira ticket</td>
+                                <td>Directly tied to the work item</td>
+                            </tr>
+                            <tr>
+                                <td>Bug reproduction steps</td>
+                                <td>Jira bug ticket</td>
+                                <td>Context for developers</td>
+                            </tr>
+                            <tr>
+                                <td>QA onboarding guide</td>
+                                <td>Confluence</td>
+                                <td>Reused across new team members</td>
+                            </tr>
+                            <tr>
+                                <td>Test environment setup</td>
+                                <td>Confluence</td>
+                                <td>Reference for entire team</td>
+                            </tr>
+                            <tr>
+                                <td>Release testing checklist</td>
+                                <td>Confluence (template)</td>
+                                <td>Copied per release, consistent process</td>
+                            </tr>
+                            <tr>
+                                <td>API test collections</td>
+                                <td>Postman (shared workspace)</td>
+                                <td>Executable, version-controlled</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Section 8: Release Notes -->
+            <section class="section" id="release-notes">
+                <div class="section-header">
+                    <div class="section-number">08</div>
+                    <h2>Release Notes & Traceability</h2>
+                </div>
+
+                <p>Release notes create a historical record of what changed and when. They're invaluable for debugging production issues, auditing changes, and communicating with stakeholders.</p>
+
+                <h3>Why Release Notes Matter</h3>
+
+                <ul>
+                    <li><strong>Visibility:</strong> Stakeholders know what's shipping without reading tickets</li>
+                    <li><strong>Traceability:</strong> Link changes back to requirements and bugs</li>
+                    <li><strong>Debugging:</strong> "When did this behavior change?" becomes answerable</li>
+                    <li><strong>Compliance:</strong> Audit trail for regulated environments</li>
+                </ul>
+
+                <h3>Release Notes Structure</h3>
+
+                <div class="code-block">
+<strong>Release v2.4.0</strong>
+<em>Released: January 15, 2024</em>
+
+<strong>✨ New Features</strong>
+• [PROJ-123] Added bulk export functionality to reports
+• [PROJ-145] Introduced dark mode for dashboard
+
+<strong>🐛 Bug Fixes</strong>
+• [PROJ-167] Fixed checkout failure with Amex cards
+• [PROJ-172] Resolved incorrect tax calculation for EU customers
+
+<strong>⚡ Improvements</strong>
+• [PROJ-180] Improved page load time by 40% on dashboard
+• [PROJ-183] Enhanced error messages for form validation
+
+<strong>⚠️ Known Issues</strong>
+• [PROJ-190] PDF export may timeout for reports > 10,000 rows (workaround: export in batches)
+
+<strong>📋 Testing Notes</strong>
+• Regression: Full regression completed on Staging
+• Focus areas: Payment processing, export functionality
+• Test coverage: 94% on new features
+                </div>
+
+                <div class="callout info">
+                    <div class="callout-icon">ℹ️</div>
+                    <div class="callout-content">
+                        <div class="callout-title">Tip: Automate Where Possible</div>
+                        <p class="callout-text">Use Jira queries or release management tools to generate release notes from resolved tickets. Manual release notes are prone to omissions and errors.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: QA Mindset -->
+            <section class="section" id="qa-mindset">
+                <div class="section-header">
+                    <div class="section-number">09</div>
+                    <h2>QA Mindset</h2>
+                </div>
+
+                <p>QA is not just a role or a phase — it's a mindset. Everyone on the team shares responsibility for quality, but QA engineers bring a unique perspective that's worth cultivating.</p>
+
+                <h3>Core Principles</h3>
+
+                <div class="pillar">
+                    <h4>Think Like a User, Break Like a Hacker</h4>
+                    <p>Users don't follow happy paths. They misclick, use outdated browsers, have slow connections, and do unexpected things. Test the product the way it will actually be used, not the way it was designed to be used.</p>
+                </div>
+
+                <div class="pillar">
+                    <h4>Raise Risks Early</h4>
+                    <p>If you see a potential problem — unclear requirements, risky architecture, tight timeline — speak up early. A concern raised in planning is a conversation; a concern raised before release is a crisis.</p>
+                </div>
+
+                <div class="pillar">
+                    <h4>Focus on Delivering Quality, Not Just Testing</h4>
+                    <p>Your job isn't to "test everything" or "find all bugs." Your job is to help the team ship quality software. Sometimes that means testing; sometimes it means asking the right questions in a design review.</p>
+                </div>
+
+                <div class="pillar">
+                    <h4>Quality is Everyone's Responsibility</h4>
+                    <p>QA doesn't own quality — we advocate for it. Developers write unit tests. Product managers clarify requirements. DevOps ensures stable environments. We're all in this together.</p>
+                </div>
+
+                <div class="card" style="background: linear-gradient(135deg, rgba(88, 166, 255, 0.1), rgba(163, 113, 247, 0.1)); border-color: var(--accent-blue);">
+                    <h4 style="margin-top: 0; color: var(--accent-blue);">The Questions QA Should Always Ask</h4>
+                    <ul style="margin-bottom: 0;">
+                        <li>What happens if this fails?</li>
+                        <li>What are users most likely to do wrong?</li>
+                        <li>What edge cases aren't covered by requirements?</li>
+                        <li>How will we know if this is working in production?</li>
+                        <li>What's the blast radius if we ship a bug here?</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section 10: Collaboration -->
+            <section class="section" id="collaboration">
+                <div class="section-header">
+                    <div class="section-number">10</div>
+                    <h2>Collaboration & Communication</h2>
+                </div>
+
+                <p>Quality is a team sport. Effective communication multiplies the impact of good QA work.</p>
+
+                <h3>Working with Developers</h3>
+
+                <ul>
+                    <li><strong>Be a partner, not a gatekeeper:</strong> We're on the same team, working toward the same goal. Frame feedback constructively.</li>
+                    <li><strong>Provide context, not just bugs:</strong> Instead of "it's broken," explain what you did, what you expected, and what happened. Include logs, screenshots, and reproduction steps.</li>
+                    <li><strong>Engage early:</strong> Don't wait until the feature is "ready for QA." Join design discussions. Review PRs for testability. Ask questions during refinement.</li>
+                    <li><strong>Respect expertise:</strong> Developers know the code; you know the user perspective. Both views are valuable.</li>
+                </ul>
+
+                <h3>Writing Actionable Bug Reports</h3>
+
+                <div class="grid-2">
+                    <div class="card" style="border-color: var(--accent-red);">
+                        <h5 style="color: var(--accent-red);">❌ Not Actionable</h5>
+                        <p>"Login doesn't work sometimes"</p>
+                    </div>
+                    <div class="card" style="border-color: var(--accent-green);">
+                        <h5 style="color: var(--accent-green);">✓ Actionable</h5>
+                        <p>"Login fails with 500 error when password contains '&' character. Tested on Chrome 120, staging environment. See attached network trace."</p>
+                    </div>
+                </div>
+
+                <h3>Supporting the Team</h3>
+
+                <ul>
+                    <li><strong>Be available:</strong> When developers have questions about expected behavior or test scenarios, respond promptly.</li>
+                    <li><strong>Share knowledge:</strong> Found a useful debugging technique? Document it. Discovered a common pattern of bugs? Share it in a team sync.</li>
+                    <li><strong>Celebrate wins:</strong> Quality improvements are worth recognizing. When a release goes smoothly, acknowledge the team effort.</li>
+                </ul>
+
+                <div class="callout success">
+                    <div class="callout-icon">✓</div>
+                    <div class="callout-content">
+                        <div class="callout-title">The QA Partnership Mindset</div>
+                        <p class="callout-text">The best QA-developer relationships are built on mutual respect and shared goals. We're not here to catch developers making mistakes — we're here to help the team ship software we're all proud of.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <p>QA HUB — Internal Documentation Portal</p>
+                <p style="margin-top: 8px;">Built with care by the QA team. Questions or suggestions? Reach out in <code>#qa-team</code></p>
+            </footer>
+        </div>
     </main>
 
     <script>
-        lucide.createIcons();
-        const sections = document.querySelectorAll('section, header');
-        const navLinks = document.querySelectorAll('.nav-link');
-        window.addEventListener('scroll', () => {
-            let current = "";
-            sections.forEach(section => {
-                if (pageYOffset >= section.offsetTop - 180) { current = section.getAttribute('id'); }
+        // Smooth scroll for navigation links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Remove active class from all links
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                // Add active class to clicked link
+                this.classList.add('active');
             });
+        });
+
+        // Update active nav on scroll
+        const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
             navLinks.forEach(link => {
                 link.classList.remove('active');
-                if (link.getAttribute('href').includes(current)) { link.classList.add('active'); }
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
             });
         });
     </script>
