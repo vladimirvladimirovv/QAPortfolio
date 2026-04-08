@@ -22,8 +22,10 @@
             --accent-red: #f85149;
             --accent-purple: #a371f7;
             --accent-teal: #39d0d0;
+            --accent-pink: #db61a2;
             --gradient-blue: linear-gradient(135deg, #1f6feb 0%, #58a6ff 100%);
             --gradient-green: linear-gradient(135deg, #238636 0%, #3fb950 100%);
+            --gradient-purple: linear-gradient(135deg, #8957e5 0%, #a371f7 100%);
             --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
             --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
             --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
@@ -327,6 +329,7 @@
         .card-icon.purple { background: rgba(163, 113, 247, 0.15); color: var(--accent-purple); }
         .card-icon.red { background: rgba(248, 81, 73, 0.15); color: var(--accent-red); }
         .card-icon.teal { background: rgba(57, 208, 208, 0.15); color: var(--accent-teal); }
+        .card-icon.pink { background: rgba(219, 97, 162, 0.15); color: var(--accent-pink); }
 
         .card h5 {
             font-size: 16px;
@@ -352,8 +355,14 @@
             gap: 16px;
         }
 
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
         @media (max-width: 900px) {
-            .grid-2, .grid-3 {
+            .grid-2, .grid-3, .grid-4 {
                 grid-template-columns: 1fr;
             }
         }
@@ -421,6 +430,13 @@
         .callout.tip .callout-icon { color: var(--accent-purple); }
         .callout.tip .callout-title { color: var(--accent-purple); }
 
+        .callout.danger {
+            background: rgba(248, 81, 73, 0.1);
+            border: 1px solid rgba(248, 81, 73, 0.2);
+        }
+        .callout.danger .callout-icon { color: var(--accent-red); }
+        .callout.danger .callout-title { color: var(--accent-red); }
+
         /* Lists */
         ul, ol {
             padding-left: 24px;
@@ -477,6 +493,7 @@
             font-family: 'JetBrains Mono', monospace;
             font-size: 13px;
             overflow-x: auto;
+            white-space: pre-wrap;
         }
 
         code {
@@ -503,6 +520,42 @@
         .tag.orange { background: rgba(210, 153, 34, 0.15); color: var(--accent-orange); }
         .tag.red { background: rgba(248, 81, 73, 0.15); color: var(--accent-red); }
         .tag.purple { background: rgba(163, 113, 247, 0.15); color: var(--accent-purple); }
+        .tag.teal { background: rgba(57, 208, 208, 0.15); color: var(--accent-teal); }
+
+        /* HTTP Method Tags */
+        .method-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.5px;
+        }
+
+        .method-tag.get { background: rgba(63, 185, 80, 0.2); color: var(--accent-green); }
+        .method-tag.post { background: rgba(88, 166, 255, 0.2); color: var(--accent-blue); }
+        .method-tag.put { background: rgba(210, 153, 34, 0.2); color: var(--accent-orange); }
+        .method-tag.patch { background: rgba(163, 113, 247, 0.2); color: var(--accent-purple); }
+        .method-tag.delete { background: rgba(248, 81, 73, 0.2); color: var(--accent-red); }
+
+        /* Status Code Tags */
+        .status-code {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            border-radius: var(--radius-sm);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .status-code.success { background: rgba(63, 185, 80, 0.15); color: var(--accent-green); }
+        .status-code.redirect { background: rgba(88, 166, 255, 0.15); color: var(--accent-blue); }
+        .status-code.client-error { background: rgba(210, 153, 34, 0.15); color: var(--accent-orange); }
+        .status-code.server-error { background: rgba(248, 81, 73, 0.15); color: var(--accent-red); }
 
         /* Tool Cards */
         .tool-card {
@@ -680,6 +733,305 @@
             color: var(--text-muted);
         }
 
+        /* Checklist Styles */
+        .checklist-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            margin: 16px 0;
+        }
+
+        .checklist-header {
+            background: var(--bg-elevated);
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-primary);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .checklist-title {
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checklist-progress {
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .progress-bar {
+            width: 100px;
+            height: 6px;
+            background: var(--bg-primary);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-green);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .checklist-body {
+            padding: 16px 20px;
+        }
+
+        .checklist-category {
+            margin-bottom: 20px;
+        }
+
+        .checklist-category:last-child {
+            margin-bottom: 0;
+        }
+
+        .category-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-primary);
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+
+        .checklist-item:hover {
+            background: rgba(88, 166, 255, 0.05);
+            margin: 0 -20px;
+            padding: 10px 20px;
+        }
+
+        .checklist-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-primary);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.15s ease;
+            margin-top: 2px;
+        }
+
+        .checklist-item.checked .checklist-checkbox {
+            background: var(--accent-green);
+            border-color: var(--accent-green);
+        }
+
+        .checklist-checkbox::after {
+            content: '✓';
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+            opacity: 0;
+            transition: opacity 0.15s ease;
+        }
+
+        .checklist-item.checked .checklist-checkbox::after {
+            opacity: 1;
+        }
+
+        .checklist-text {
+            flex: 1;
+        }
+
+        .checklist-text-main {
+            font-size: 14px;
+            color: var(--text-primary);
+            transition: color 0.15s ease;
+        }
+
+        .checklist-item.checked .checklist-text-main {
+            color: var(--text-muted);
+            text-decoration: line-through;
+        }
+
+        .checklist-text-sub {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .checklist-actions {
+            padding: 16px 20px;
+            border-top: 1px solid var(--border-primary);
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: none;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: var(--gradient-blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        .btn-secondary {
+            background: var(--bg-elevated);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-card);
+            color: var(--text-primary);
+        }
+
+        /* Risk Matrix */
+        .risk-matrix {
+            display: grid;
+            grid-template-columns: auto repeat(4, 1fr);
+            gap: 2px;
+            background: var(--border-primary);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .risk-cell {
+            background: var(--bg-card);
+            padding: 12px 16px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .risk-header {
+            background: var(--bg-elevated);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .risk-label {
+            background: var(--bg-elevated);
+            font-weight: 500;
+            justify-content: flex-start;
+            padding-left: 16px;
+        }
+
+        .risk-critical { background: rgba(248, 81, 73, 0.25); color: var(--accent-red); font-weight: 600; }
+        .risk-high { background: rgba(210, 153, 34, 0.25); color: var(--accent-orange); font-weight: 500; }
+        .risk-medium { background: rgba(88, 166, 255, 0.2); color: var(--accent-blue); }
+        .risk-low { background: rgba(63, 185, 80, 0.15); color: var(--accent-green); }
+
+        /* API Test Structure */
+        .api-test-block {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-md);
+            margin: 16px 0;
+            overflow: hidden;
+        }
+
+        .api-test-header {
+            background: var(--bg-elevated);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-primary);
+        }
+
+        .api-test-endpoint {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .api-test-body {
+            padding: 16px;
+        }
+
+        .api-test-section {
+            margin-bottom: 16px;
+        }
+
+        .api-test-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .api-test-section-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            border-bottom: 1px solid var(--border-primary);
+            margin-bottom: 24px;
+        }
+
+        .tab {
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.15s ease;
+            margin-bottom: -1px;
+        }
+
+        .tab:hover {
+            color: var(--text-secondary);
+        }
+
+        .tab.active {
+            color: var(--accent-blue);
+            border-bottom-color: var(--accent-blue);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
         /* Footer */
         .footer {
             margin-top: 64px;
@@ -718,6 +1070,78 @@
         ::-webkit-scrollbar-thumb:hover {
             background: var(--text-muted);
         }
+
+        /* Expandable sections */
+        .expandable {
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-md);
+            margin: 12px 0;
+            overflow: hidden;
+        }
+
+        .expandable-header {
+            background: var(--bg-card);
+            padding: 16px 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.15s ease;
+        }
+
+        .expandable-header:hover {
+            background: var(--bg-elevated);
+        }
+
+        .expandable-title {
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .expandable-arrow {
+            transition: transform 0.2s ease;
+            color: var(--text-muted);
+        }
+
+        .expandable.open .expandable-arrow {
+            transform: rotate(180deg);
+        }
+
+        .expandable-content {
+            display: none;
+            padding: 20px;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-primary);
+        }
+
+        .expandable.open .expandable-content {
+            display: block;
+        }
+
+        /* Metric Cards */
+        .metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--accent-blue);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .metric-label {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
     </style>
 </head>
 <body>
@@ -734,48 +1158,35 @@
         </div>
 
         <nav class="nav-section">
-            <div class="nav-section-title">Getting Started</div>
-            <a href="#introduction" class="nav-link active">
-                <span>📋</span> Introduction
+            <div class="nav-section-title">Foundation</div>
+            <a href="#best-practices" class="nav-link active">
+                <span>✨</span> QA Best Practices
             </a>
-            <a href="#testing-strategy" class="nav-link">
-                <span>🎯</span> Testing Strategy
-            </a>
-            <a href="#test-documentation" class="nav-link">
-                <span>📝</span> Test Documentation
+            <a href="#test-strategy" class="nav-link">
+                <span>🎯</span> Test Strategy & Coverage
             </a>
         </nav>
 
         <nav class="nav-section">
-            <div class="nav-section-title">Standards</div>
+            <div class="nav-section-title">Technical</div>
+            <a href="#api-testing" class="nav-link">
+                <span>🔌</span> API Testing Guidelines
+            </a>
+            <a href="#risk-areas" class="nav-link">
+                <span>⚠️</span> Risk Areas
+            </a>
             <a href="#bug-reporting" class="nav-link">
-                <span>🐛</span> Bug Reporting
-            </a>
-            <a href="#tools-workflow" class="nav-link">
-                <span>🛠️</span> Tools & Workflow
-            </a>
-            <a href="#debugging" class="nav-link">
-                <span>🔍</span> Debugging
+                <span>🐛</span> Bug Reporting Standards
             </a>
         </nav>
 
         <nav class="nav-section">
-            <div class="nav-section-title">Knowledge Base</div>
-            <a href="#documentation-strategy" class="nav-link">
-                <span>📚</span> Documentation Strategy
+            <div class="nav-section-title">Resources</div>
+            <a href="#checklists" class="nav-link">
+                <span>✅</span> Testing Checklists
             </a>
-            <a href="#release-notes" class="nav-link">
-                <span>🚀</span> Release Notes
-            </a>
-        </nav>
-
-        <nav class="nav-section">
-            <div class="nav-section-title">Culture</div>
-            <a href="#qa-mindset" class="nav-link">
-                <span>🧠</span> QA Mindset
-            </a>
-            <a href="#collaboration" class="nav-link">
-                <span>🤝</span> Collaboration
+            <a href="#tools-frameworks" class="nav-link">
+                <span>🛠️</span> Tools & Frameworks
             </a>
         </nav>
     </aside>
@@ -800,53 +1211,128 @@
             <div class="hero">
                 <div class="hero-content">
                     <h1>Welcome to QA HUB</h1>
-                    <p>Your central resource for quality assurance best practices, testing guidelines, and knowledge sharing. Built by QA engineers, for QA engineers — and everyone who cares about shipping quality software.</p>
+                    <p>Your comprehensive resource for quality assurance best practices, testing guidelines, and knowledge sharing. Built from 4+ years of real-world QA experience — practical, actionable, and continuously improved.</p>
                 </div>
             </div>
 
-            <!-- Section 1: Introduction -->
-            <section class="section" id="introduction">
+            <!-- ============================================== -->
+            <!-- SECTION 1: QA BEST PRACTICES -->
+            <!-- ============================================== -->
+            <section class="section" id="best-practices">
                 <div class="section-header">
                     <div class="section-number">01</div>
-                    <h2>Introduction</h2>
+                    <h2>QA Best Practices</h2>
                 </div>
 
-                <p>Quality Assurance isn't just about finding bugs — it's about building confidence in the product we deliver. This documentation captures our collective knowledge, standards, and practices that help us maintain high-quality software across all teams.</p>
+                <p>Quality Assurance isn't about finding bugs — it's about preventing them, reducing risk, and building confidence in what we ship. These practices are the foundation of effective QA work.</p>
 
-                <h3>Our QA Philosophy</h3>
+                <h3>Core Principles</h3>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon blue">🎯</div>
+                            <div><h5>Shift-Left Testing</h5></div>
+                        </div>
+                        <p>Engage early in the development lifecycle. Review requirements, participate in design discussions, and identify risks before code is written. Bugs found early cost 10x less to fix than bugs found in production.</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon green">🔍</div>
+                            <div><h5>Risk-Based Testing</h5></div>
+                        </div>
+                        <p>Not all features carry equal risk. Focus testing effort on high-impact areas: payment flows, authentication, data integrity, and user-facing critical paths. Prioritize based on business impact and likelihood of failure.</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon purple">🔄</div>
+                            <div><h5>Test Independence</h5></div>
+                        </div>
+                        <p>Each test should be self-contained and reproducible. Tests shouldn't depend on other tests' execution or external state. This ensures reliable results and easier debugging when failures occur.</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon orange">📊</div>
+                            <div><h5>Data-Driven Decisions</h5></div>
+                        </div>
+                        <p>Use metrics to guide testing strategy: defect density, test coverage, escape rate, and time-to-resolution. Let data reveal patterns and inform where to focus effort.</p>
+                    </div>
+                </div>
+
+                <h3>Testing Mindset</h3>
 
                 <div class="pillar">
-                    <h4>Risk Reduction Over Bug Counting</h4>
-                    <p>We don't measure success by the number of bugs found. Our goal is to reduce the risk of defects reaching production. A well-designed test strategy that prevents issues is worth more than catching them later.</p>
+                    <h4>Think Like a User</h4>
+                    <p>Users don't read documentation. They click randomly, use unexpected data, and make mistakes. Test the product the way real users interact with it — including frustration scenarios, interruptions, and edge cases.</p>
                 </div>
 
                 <div class="pillar">
-                    <h4>Shift-Left: Early Involvement Matters</h4>
-                    <p>The earlier we engage in the development process, the cheaper and faster defects are to fix. QA participates in requirements discussions, design reviews, and sprint planning — not just at the end of the cycle.</p>
+                    <h4>Think Like a Breaker</h4>
+                    <p>Your job is to find the ways the system can fail. What happens with invalid input? What if the network drops mid-transaction? What if a user clicks "submit" 10 times? Adopt an adversarial mindset.</p>
                 </div>
 
                 <div class="pillar">
-                    <h4>Collaboration is Key</h4>
-                    <p>Quality is everyone's responsibility. We work alongside developers, product managers, and stakeholders. We're partners in delivery, not gatekeepers blocking releases.</p>
+                    <h4>Think Like a Detective</h4>
+                    <p>When you find a bug, dig deeper. Is this an isolated issue or a symptom of a larger problem? What other areas might be affected? Root cause analysis prevents recurring defects.</p>
+                </div>
+
+                <h3>Best Practices Checklist</h3>
+
+                <div class="grid-2">
+                    <div>
+                        <h4>Before Testing</h4>
+                        <ul>
+                            <li>Understand the requirements and acceptance criteria</li>
+                            <li>Identify test data requirements</li>
+                            <li>Set up the test environment correctly</li>
+                            <li>Review related bug history</li>
+                            <li>Identify dependencies and integration points</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>During Testing</h4>
+                        <ul>
+                            <li>Cover happy path, edge cases, and negative scenarios</li>
+                            <li>Document findings as you go</li>
+                            <li>Verify fix for related areas (regression)</li>
+                            <li>Use realistic test data</li>
+                            <li>Note observations even if not bugs</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div class="callout success">
                     <div class="callout-icon">✓</div>
                     <div class="callout-content">
-                        <div class="callout-title">Core Principle</div>
-                        <p class="callout-text">Quality is built in, not tested in. Testing validates that quality exists; it doesn't create it.</p>
+                        <div class="callout-title">Golden Rule</div>
+                        <p class="callout-text">"Quality is built in, not tested in." Testing validates that quality exists — it doesn't create it. The best QA work happens before testing begins: in requirements review, design discussions, and early collaboration.</p>
                     </div>
                 </div>
             </section>
 
-            <!-- Section 2: Testing Strategy -->
-            <section class="section" id="testing-strategy">
+            <!-- ============================================== -->
+            <!-- SECTION 2: TEST STRATEGY & COVERAGE -->
+            <!-- ============================================== -->
+            <section class="section" id="test-strategy">
                 <div class="section-header">
                     <div class="section-number">02</div>
-                    <h2>Testing Strategy</h2>
+                    <h2>Test Strategy & Coverage</h2>
                 </div>
 
-                <p>A solid testing strategy balances coverage, time, and risk. We don't aim to test everything — we aim to test the right things at the right time.</p>
+                <p>A solid test strategy balances thoroughness with practicality. We can't test everything, so we test the right things at the right time with the right depth.</p>
+
+                <h3>Testing Pyramid</h3>
+
+                <div class="callout info">
+                    <div class="callout-icon">ℹ️</div>
+                    <div class="callout-content">
+                        <div class="callout-title">The Testing Pyramid</div>
+                        <p class="callout-text">Build a foundation of fast unit tests (70%), a middle layer of integration tests (20%), and a small cap of E2E tests (10%). This provides fast feedback loops and maintainable test suites.</p>
+                    </div>
+                </div>
 
                 <h3>Testing Types</h3>
 
@@ -854,201 +1340,711 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-icon blue">🎯</div>
-                            <div>
-                                <h5>Functional Testing</h5>
-                            </div>
+                            <div><h5>Functional Testing</h5></div>
                         </div>
-                        <p>Validates that features work according to requirements. Covers business logic, user workflows, and acceptance criteria. This is our bread and butter.</p>
+                        <p>Validates features work according to requirements. The bread and butter of QA.</p>
+                        <ul style="margin-top: 12px; font-size: 13px;">
+                            <li>Verify acceptance criteria</li>
+                            <li>Test business logic</li>
+                            <li>Validate user workflows</li>
+                            <li>Check data processing</li>
+                        </ul>
                     </div>
 
                     <div class="card">
                         <div class="card-header">
                             <div class="card-icon purple">🔄</div>
-                            <div>
-                                <h5>Regression Testing</h5>
-                            </div>
+                            <div><h5>Regression Testing</h5></div>
                         </div>
-                        <p>Ensures that new changes haven't broken existing functionality. Critical before releases. Automate what you can; prioritize high-risk areas for manual regression.</p>
+                        <p>Ensures new changes don't break existing functionality. Critical before every release.</p>
+                        <ul style="margin-top: 12px; font-size: 13px;">
+                            <li>Automate high-value paths</li>
+                            <li>Prioritize recently changed areas</li>
+                            <li>Focus on critical business flows</li>
+                            <li>Include integration points</li>
+                        </ul>
                     </div>
 
                     <div class="card">
                         <div class="card-header">
                             <div class="card-icon green">💨</div>
-                            <div>
-                                <h5>Smoke / Sanity Testing</h5>
-                            </div>
+                            <div><h5>Smoke / Sanity Testing</h5></div>
                         </div>
-                        <p><strong>Smoke:</strong> Quick checks that critical paths work after deployment. <strong>Sanity:</strong> Focused verification of specific changes. Both are gatekeepers before deeper testing.</p>
+                        <p><strong>Smoke:</strong> Quick checks after deployment — can users log in? Do critical paths work?<br><strong>Sanity:</strong> Focused verification of specific changes.</p>
+                        <ul style="margin-top: 12px; font-size: 13px;">
+                            <li>5-10 critical scenarios</li>
+                            <li>Run after every deployment</li>
+                            <li>Gate for deeper testing</li>
+                        </ul>
                     </div>
 
                     <div class="card">
                         <div class="card-header">
                             <div class="card-icon orange">🔗</div>
-                            <div>
-                                <h5>End-to-End Testing</h5>
-                            </div>
+                            <div><h5>End-to-End Testing</h5></div>
                         </div>
-                        <p>Tests complete user journeys across the system. Covers integration points, data flow, and real-world scenarios. Expensive to maintain — use sparingly for critical paths.</p>
+                        <p>Tests complete user journeys across the system. Expensive but valuable for critical paths.</p>
+                        <ul style="margin-top: 12px; font-size: 13px;">
+                            <li>User registration → checkout</li>
+                            <li>Cross-service workflows</li>
+                            <li>Third-party integrations</li>
+                            <li>Use sparingly — high maintenance</li>
+                        </ul>
                     </div>
 
                     <div class="card">
                         <div class="card-header">
                             <div class="card-icon teal">🔬</div>
-                            <div>
-                                <h5>Exploratory Testing</h5>
-                            </div>
+                            <div><h5>Exploratory Testing</h5></div>
                         </div>
-                        <p>Unscripted, creative testing based on experience and intuition. Great for finding edge cases that scripted tests miss. Document your findings as you go.</p>
+                        <p>Unscripted, creative testing based on experience. Finds bugs that scripted tests miss.</p>
+                        <ul style="margin-top: 12px; font-size: 13px;">
+                            <li>Time-boxed sessions (60-90 min)</li>
+                            <li>Document findings as you go</li>
+                            <li>Focus on new/changed areas</li>
+                            <li>Use personas and scenarios</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon pink">🛡️</div>
+                            <div><h5>Non-Functional Testing</h5></div>
+                        </div>
+                        <p>Tests quality attributes beyond functionality: performance, security, accessibility.</p>
+                        <ul style="margin-top: 12px; font-size: 13px;">
+                            <li>Load and stress testing</li>
+                            <li>Security vulnerability scans</li>
+                            <li>Accessibility (WCAG compliance)</li>
+                            <li>Usability evaluation</li>
+                        </ul>
                     </div>
                 </div>
 
-                <h3>Best Practices</h3>
+                <h3>Coverage Strategy</h3>
 
-                <ul>
-                    <li><strong>Prioritize based on risk:</strong> Not all features carry equal risk. Focus testing effort on high-impact, frequently-used, or recently-changed areas.</li>
-                    <li><strong>Cover the spectrum:</strong> Happy path + edge cases + negative scenarios. Users don't always follow the happy path.</li>
-                    <li><strong>Keep tests reproducible and independent:</strong> Each test should be able to run in isolation without depending on other tests or external state.</li>
-                    <li><strong>Test data matters:</strong> Use realistic data sets. Production-like data catches issues that "test123" never will.</li>
-                    <li><strong>Balance automation and manual:</strong> Automate repetitive checks; keep exploratory and complex scenarios manual.</li>
-                </ul>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Coverage Type</th>
+                                <th>Target</th>
+                                <th>Focus Areas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Requirements Coverage</strong></td>
+                                <td>100%</td>
+                                <td>Every acceptance criterion has at least one test</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Happy Path Coverage</strong></td>
+                                <td>100%</td>
+                                <td>All expected user workflows validated</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Edge Case Coverage</strong></td>
+                                <td>80%+</td>
+                                <td>Boundary conditions, limits, unusual inputs</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Negative Scenario Coverage</strong></td>
+                                <td>70%+</td>
+                                <td>Invalid inputs, error handling, failure modes</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Integration Coverage</strong></td>
+                                <td>90%+</td>
+                                <td>All external touchpoints and APIs</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
                 <div class="callout tip">
                     <div class="callout-icon">💡</div>
                     <div class="callout-content">
-                        <div class="callout-title">Pro Tip</div>
-                        <p class="callout-text">When time is limited, focus on: (1) new features, (2) areas with recent changes, (3) historically buggy modules. This risk-based approach maximizes coverage impact.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Section 3: Test Documentation -->
-            <section class="section" id="test-documentation">
-                <div class="section-header">
-                    <div class="section-number">03</div>
-                    <h2>Test Scenarios & Documentation</h2>
-                </div>
-
-                <h3>Test Scenarios vs Test Cases</h3>
-
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Aspect</th>
-                                <th>Test Scenario</th>
-                                <th>Test Case</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Granularity</strong></td>
-                                <td>High-level, describes what to test</td>
-                                <td>Detailed, describes how to test</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Example</strong></td>
-                                <td>"Verify user login functionality"</td>
-                                <td>Step-by-step instructions with specific data</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Maintenance</strong></td>
-                                <td>Easier to maintain, less detail to update</td>
-                                <td>Higher maintenance, needs regular updates</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Best for</strong></td>
-                                <td>Agile teams, frequently changing features</td>
-                                <td>Stable features, compliance requirements</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="callout info">
-                    <div class="callout-icon">ℹ️</div>
-                    <div class="callout-content">
-                        <div class="callout-title">Practical Approach</div>
-                        <p class="callout-text">In practice, test scenarios are often documented directly in tickets (Jira). This keeps documentation close to the work and reduces duplication. Detailed test cases are reserved for critical paths or compliance needs.</p>
+                        <div class="callout-title">Coverage Trap</div>
+                        <p class="callout-text">100% code coverage doesn't mean 100% quality. Focus on meaningful coverage — testing the right scenarios, not just hitting lines of code. A well-designed 70% coverage can be more effective than poorly-designed 100%.</p>
                     </div>
                 </div>
 
-                <h3>Test Case Structure</h3>
+                <h3>Test Scenario Structure</h3>
 
-                <div class="code-block">
-<strong>Test Case ID:</strong> TC-LOGIN-001
-<strong>Title:</strong> Verify successful login with valid credentials
+                <div class="code-block"><strong>Scenario ID:</strong> TS-CHECKOUT-005
+<strong>Feature:</strong> Shopping Cart Checkout
+<strong>Scenario:</strong> Apply discount code at checkout
 
 <strong>Preconditions:</strong>
-• User account exists in the system
-• User is on the login page
-• User has valid email and password
+• User is logged in
+• Cart contains at least one item
+• Valid discount code "SAVE20" exists (20% off)
 
-<strong>Steps:</strong>
-1. Enter valid email address in the email field
-2. Enter correct password in the password field
-3. Click the "Login" button
+<strong>Test Steps:</strong>
+1. Navigate to cart page
+2. Click "Proceed to Checkout"
+3. Enter discount code "SAVE20" in promo field
+4. Click "Apply"
 
-<strong>Expected Result:</strong>
-• User is redirected to the dashboard
-• Welcome message displays user's name
-• Session is created (verify in browser dev tools)
+<strong>Expected Results:</strong>
+• Discount is applied to order total
+• 20% reduction displayed in order summary
+• Original price shown with strikethrough
+• "SAVE20 applied" confirmation message
 
-<strong>Test Data:</strong>
-• Email: testuser@example.com
-• Password: [stored in secure vault]
+<strong>Edge Cases to Cover:</strong>
+• Expired discount code
+• Already-used code
+• Minimum purchase not met
+• Code with restricted products</div>
+            </section>
+
+            <!-- ============================================== -->
+            <!-- SECTION 3: API TESTING GUIDELINES -->
+            <!-- ============================================== -->
+            <section class="section" id="api-testing">
+                <div class="section-header">
+                    <div class="section-number">03</div>
+                    <h2>API Testing Guidelines</h2>
                 </div>
 
-                <h3>Example: E-commerce Checkout Scenarios</h3>
+                <p>API testing validates the business logic layer independent of UI. It's faster, more stable, and catches issues closer to the source. Every QA engineer should be comfortable testing APIs.</p>
+
+                <h3>HTTP Methods Reference</h3>
 
                 <div class="table-wrapper">
                     <table>
                         <thead>
                             <tr>
-                                <th>Scenario</th>
-                                <th>Type</th>
-                                <th>Priority</th>
+                                <th>Method</th>
+                                <th>Purpose</th>
+                                <th>Idempotent</th>
+                                <th>Request Body</th>
+                                <th>Common Use</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Complete purchase with credit card</td>
-                                <td><span class="tag green">Happy Path</span></td>
-                                <td><span class="tag red">Critical</span></td>
+                                <td><span class="method-tag get">GET</span></td>
+                                <td>Retrieve data</td>
+                                <td>✓ Yes</td>
+                                <td>No</td>
+                                <td>Fetch user, list items, search</td>
                             </tr>
                             <tr>
-                                <td>Apply valid discount code at checkout</td>
-                                <td><span class="tag green">Happy Path</span></td>
-                                <td><span class="tag orange">High</span></td>
+                                <td><span class="method-tag post">POST</span></td>
+                                <td>Create resource</td>
+                                <td>✗ No</td>
+                                <td>Yes</td>
+                                <td>Create user, submit form, upload</td>
                             </tr>
                             <tr>
-                                <td>Checkout with empty cart</td>
-                                <td><span class="tag blue">Negative</span></td>
-                                <td><span class="tag blue">Medium</span></td>
+                                <td><span class="method-tag put">PUT</span></td>
+                                <td>Replace resource</td>
+                                <td>✓ Yes</td>
+                                <td>Yes</td>
+                                <td>Update entire user profile</td>
                             </tr>
                             <tr>
-                                <td>Payment with expired card</td>
-                                <td><span class="tag blue">Negative</span></td>
-                                <td><span class="tag orange">High</span></td>
+                                <td><span class="method-tag patch">PATCH</span></td>
+                                <td>Partial update</td>
+                                <td>✗ No</td>
+                                <td>Yes</td>
+                                <td>Update user email only</td>
                             </tr>
                             <tr>
-                                <td>Checkout with max quantity (9999 items)</td>
-                                <td><span class="tag purple">Edge Case</span></td>
-                                <td><span class="tag blue">Medium</span></td>
+                                <td><span class="method-tag delete">DELETE</span></td>
+                                <td>Remove resource</td>
+                                <td>✓ Yes</td>
+                                <td>Optional</td>
+                                <td>Delete user, remove item</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>HTTP Status Codes Reference</h3>
+
+                <div class="grid-2" style="margin-top: 20px;">
+                    <div>
+                        <h4 style="color: var(--accent-green);">2xx Success</h4>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <div class="status-code success"><strong>200</strong> OK — Request succeeded</div>
+                            <div class="status-code success"><strong>201</strong> Created — Resource created</div>
+                            <div class="status-code success"><strong>204</strong> No Content — Success, no body</div>
+                        </div>
+
+                        <h4 style="color: var(--accent-blue); margin-top: 24px;">3xx Redirection</h4>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <div class="status-code redirect"><strong>301</strong> Moved Permanently</div>
+                            <div class="status-code redirect"><strong>302</strong> Found (Temporary redirect)</div>
+                            <div class="status-code redirect"><strong>304</strong> Not Modified (Cached)</div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 style="color: var(--accent-orange);">4xx Client Error</h4>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <div class="status-code client-error"><strong>400</strong> Bad Request — Invalid syntax</div>
+                            <div class="status-code client-error"><strong>401</strong> Unauthorized — Auth required</div>
+                            <div class="status-code client-error"><strong>403</strong> Forbidden — No permission</div>
+                            <div class="status-code client-error"><strong>404</strong> Not Found — Resource missing</div>
+                            <div class="status-code client-error"><strong>409</strong> Conflict — State conflict</div>
+                            <div class="status-code client-error"><strong>422</strong> Unprocessable — Validation failed</div>
+                            <div class="status-code client-error"><strong>429</strong> Too Many Requests — Rate limited</div>
+                        </div>
+
+                        <h4 style="color: var(--accent-red); margin-top: 24px;">5xx Server Error</h4>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <div class="status-code server-error"><strong>500</strong> Internal Server Error</div>
+                            <div class="status-code server-error"><strong>502</strong> Bad Gateway</div>
+                            <div class="status-code server-error"><strong>503</strong> Service Unavailable</div>
+                            <div class="status-code server-error"><strong>504</strong> Gateway Timeout</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Positive vs Negative Testing</h3>
+
+                <div class="grid-2">
+                    <div class="card" style="border-left: 3px solid var(--accent-green);">
+                        <h5 style="color: var(--accent-green);">✓ Positive Testing</h5>
+                        <p>Validates that the API works correctly with valid inputs.</p>
+                        <ul style="font-size: 13px; margin-top: 12px;">
+                            <li>Valid request returns expected data</li>
+                            <li>Correct status codes (200, 201)</li>
+                            <li>Response schema matches spec</li>
+                            <li>Required fields present</li>
+                            <li>Data types are correct</li>
+                            <li>Pagination works as expected</li>
+                        </ul>
+                    </div>
+
+                    <div class="card" style="border-left: 3px solid var(--accent-red);">
+                        <h5 style="color: var(--accent-red);">✗ Negative Testing</h5>
+                        <p>Validates that the API handles invalid inputs gracefully.</p>
+                        <ul style="font-size: 13px; margin-top: 12px;">
+                            <li>Missing required fields → 400</li>
+                            <li>Invalid data types → 422</li>
+                            <li>Unauthorized access → 401/403</li>
+                            <li>Non-existent resource → 404</li>
+                            <li>Malformed JSON → 400</li>
+                            <li>Boundary violations → appropriate error</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Sample API Test Structure</h3>
+
+                <div class="api-test-block">
+                    <div class="api-test-header">
+                        <span class="method-tag post">POST</span>
+                        <span class="api-test-endpoint">/api/v1/users</span>
+                        <span style="margin-left: auto; color: var(--text-muted); font-size: 13px;">Create User</span>
+                    </div>
+                    <div class="api-test-body">
+                        <div class="api-test-section">
+                            <div class="api-test-section-title">Request Body</div>
+                            <div class="code-block" style="margin: 8px 0;">{
+  "email": "john.doe@example.com",
+  "password": "SecurePass123!",
+  "firstName": "John",
+  "lastName": "Doe"
+}</div>
+                        </div>
+                        <div class="api-test-section">
+                            <div class="api-test-section-title">Expected Response (201 Created)</div>
+                            <div class="code-block" style="margin: 8px 0;">{
+  "id": "usr_abc123",
+  "email": "john.doe@example.com",
+  "firstName": "John",
+  "lastName": "Doe",
+  "createdAt": "2024-01-15T10:30:00Z"
+}</div>
+                        </div>
+                        <div class="api-test-section">
+                            <div class="api-test-section-title">Test Cases</div>
+                            <div class="table-wrapper" style="margin: 8px 0;">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Scenario</th>
+                                            <th>Input</th>
+                                            <th>Expected</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Valid user creation</td>
+                                            <td>All fields valid</td>
+                                            <td>201, user object returned</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Duplicate email</td>
+                                            <td>Existing email</td>
+                                            <td>409, "Email already exists"</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Invalid email format</td>
+                                            <td>email: "notanemail"</td>
+                                            <td>422, validation error</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Weak password</td>
+                                            <td>password: "123"</td>
+                                            <td>422, password requirements</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Missing required field</td>
+                                            <td>No email field</td>
+                                            <td>400, "email is required"</td>
+                                        </tr>
+                                        <tr>
+                                            <td>SQL injection attempt</td>
+                                            <td>email: "'; DROP TABLE--"</td>
+                                            <td>422, sanitized/rejected</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Security Testing Patterns</h3>
+
+                <div class="grid-2">
+                    <div class="expandable open">
+                        <div class="expandable-header" onclick="toggleExpand(this)">
+                            <span class="expandable-title">🔐 Authentication Testing</span>
+                            <span class="expandable-arrow">▼</span>
+                        </div>
+                        <div class="expandable-content">
+                            <ul style="font-size: 14px;">
+                                <li>Valid credentials succeed</li>
+                                <li>Invalid credentials return 401</li>
+                                <li>Expired tokens are rejected</li>
+                                <li>Token refresh works correctly</li>
+                                <li>Brute force protection (rate limiting)</li>
+                                <li>Session timeout enforcement</li>
+                                <li>Logout invalidates session</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="expandable">
+                        <div class="expandable-header" onclick="toggleExpand(this)">
+                            <span class="expandable-title">🛡️ Authorization Testing</span>
+                            <span class="expandable-arrow">▼</span>
+                        </div>
+                        <div class="expandable-content">
+                            <ul style="font-size: 14px;">
+                                <li>Users can't access others' data</li>
+                                <li>Role-based permissions enforced</li>
+                                <li>Privilege escalation prevented</li>
+                                <li>Admin endpoints protected</li>
+                                <li>IDOR (Insecure Direct Object Reference)</li>
+                                <li>Horizontal privilege escalation</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="expandable">
+                        <div class="expandable-header" onclick="toggleExpand(this)">
+                            <span class="expandable-title">💉 Injection Testing</span>
+                            <span class="expandable-arrow">▼</span>
+                        </div>
+                        <div class="expandable-content">
+                            <ul style="font-size: 14px;">
+                                <li>SQL injection attempts</li>
+                                <li>NoSQL injection patterns</li>
+                                <li>XSS in input fields</li>
+                                <li>Command injection</li>
+                                <li>LDAP injection</li>
+                                <li>XML/XXE injection</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="expandable">
+                        <div class="expandable-header" onclick="toggleExpand(this)">
+                            <span class="expandable-title">📊 Data Validation</span>
+                            <span class="expandable-arrow">▼</span>
+                        </div>
+                        <div class="expandable-content">
+                            <ul style="font-size: 14px;">
+                                <li>Input length limits enforced</li>
+                                <li>Data type validation</li>
+                                <li>Special character handling</li>
+                                <li>Unicode and encoding attacks</li>
+                                <li>File upload restrictions</li>
+                                <li>Content-Type validation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Performance Considerations</h3>
+
+                <div class="callout warning">
+                    <div class="callout-icon">⚠️</div>
+                    <div class="callout-content">
+                        <div class="callout-title">API Performance Baselines</div>
+                        <p class="callout-text">
+                            <strong>Response Time:</strong> Simple GETs &lt; 200ms | Complex queries &lt; 500ms | Reports &lt; 2s<br>
+                            <strong>Throughput:</strong> Know your expected requests/second<br>
+                            <strong>Payload Size:</strong> Monitor response sizes, implement pagination<br>
+                            <strong>Rate Limiting:</strong> Verify limits are enforced and documented
+                        </p>
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Performance Test</th>
+                                <th>Purpose</th>
+                                <th>Key Metrics</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Load Testing</strong></td>
+                                <td>Normal expected load</td>
+                                <td>Response time, throughput, error rate</td>
                             </tr>
                             <tr>
-                                <td>Price change during checkout session</td>
-                                <td><span class="tag purple">Edge Case</span></td>
-                                <td><span class="tag orange">High</span></td>
+                                <td><strong>Stress Testing</strong></td>
+                                <td>Beyond normal capacity</td>
+                                <td>Breaking point, recovery time</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Spike Testing</strong></td>
+                                <td>Sudden traffic bursts</td>
+                                <td>Auto-scaling, graceful degradation</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Endurance Testing</strong></td>
+                                <td>Sustained load over time</td>
+                                <td>Memory leaks, connection pools</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </section>
 
-            <!-- Section 4: Bug Reporting -->
-            <section class="section" id="bug-reporting">
+            <!-- ============================================== -->
+            <!-- SECTION 4: RISK AREAS -->
+            <!-- ============================================== -->
+            <section class="section" id="risk-areas">
                 <div class="section-header">
                     <div class="section-number">04</div>
+                    <h2>Risk Areas</h2>
+                </div>
+
+                <p>Not all bugs are equal. These areas represent the highest risk to users and business — they deserve extra attention during testing.</p>
+
+                <h3>Risk Assessment Matrix</h3>
+
+                <div class="risk-matrix">
+                    <div class="risk-cell risk-header"></div>
+                    <div class="risk-cell risk-header">Low Likelihood</div>
+                    <div class="risk-cell risk-header">Medium Likelihood</div>
+                    <div class="risk-cell risk-header">High Likelihood</div>
+                    <div class="risk-cell risk-header">Very High Likelihood</div>
+
+                    <div class="risk-cell risk-label">Critical Impact</div>
+                    <div class="risk-cell risk-high">High</div>
+                    <div class="risk-cell risk-critical">Critical</div>
+                    <div class="risk-cell risk-critical">Critical</div>
+                    <div class="risk-cell risk-critical">Critical</div>
+
+                    <div class="risk-cell risk-label">High Impact</div>
+                    <div class="risk-cell risk-medium">Medium</div>
+                    <div class="risk-cell risk-high">High</div>
+                    <div class="risk-cell risk-critical">Critical</div>
+                    <div class="risk-cell risk-critical">Critical</div>
+
+                    <div class="risk-cell risk-label">Medium Impact</div>
+                    <div class="risk-cell risk-low">Low</div>
+                    <div class="risk-cell risk-medium">Medium</div>
+                    <div class="risk-cell risk-high">High</div>
+                    <div class="risk-cell risk-high">High</div>
+
+                    <div class="risk-cell risk-label">Low Impact</div>
+                    <div class="risk-cell risk-low">Low</div>
+                    <div class="risk-cell risk-low">Low</div>
+                    <div class="risk-cell risk-medium">Medium</div>
+                    <div class="risk-cell risk-medium">Medium</div>
+                </div>
+
+                <h3>High-Risk Areas by Category</h3>
+
+                <div class="grid-2">
+                    <div class="card" style="border-left: 3px solid var(--accent-red);">
+                        <div class="card-header">
+                            <div class="card-icon red">💳</div>
+                            <div><h5>Payment & Financial</h5></div>
+                        </div>
+                        <p style="margin-bottom: 12px;">Bugs here mean lost revenue, chargebacks, and legal issues.</p>
+                        <ul style="font-size: 13px; margin: 0;">
+                            <li>Payment processing flows</li>
+                            <li>Price calculations & discounts</li>
+                            <li>Currency conversions</li>
+                            <li>Tax calculations</li>
+                            <li>Refund processing</li>
+                            <li>Subscription billing</li>
+                        </ul>
+                    </div>
+
+                    <div class="card" style="border-left: 3px solid var(--accent-red);">
+                        <div class="card-header">
+                            <div class="card-icon red">🔐</div>
+                            <div><h5>Authentication & Security</h5></div>
+                        </div>
+                        <p style="margin-bottom: 12px;">Failures expose user data and create compliance violations.</p>
+                        <ul style="font-size: 13px; margin: 0;">
+                            <li>Login/logout flows</li>
+                            <li>Password reset</li>
+                            <li>Session management</li>
+                            <li>Permission boundaries</li>
+                            <li>Data encryption</li>
+                            <li>PII handling</li>
+                        </ul>
+                    </div>
+
+                    <div class="card" style="border-left: 3px solid var(--accent-orange);">
+                        <div class="card-header">
+                            <div class="card-icon orange">📊</div>
+                            <div><h5>Data Integrity</h5></div>
+                        </div>
+                        <p style="margin-bottom: 12px;">Corrupted data is often harder to fix than code bugs.</p>
+                        <ul style="font-size: 13px; margin: 0;">
+                            <li>CRUD operations</li>
+                            <li>Data migrations</li>
+                            <li>Concurrent updates</li>
+                            <li>Import/export functions</li>
+                            <li>Database transactions</li>
+                            <li>Backup/restore</li>
+                        </ul>
+                    </div>
+
+                    <div class="card" style="border-left: 3px solid var(--accent-orange);">
+                        <div class="card-header">
+                            <div class="card-icon orange">🔗</div>
+                            <div><h5>Third-Party Integrations</h5></div>
+                        </div>
+                        <p style="margin-bottom: 12px;">External dependencies are outside our control.</p>
+                        <ul style="font-size: 13px; margin: 0;">
+                            <li>Payment gateways</li>
+                            <li>Email/SMS services</li>
+                            <li>OAuth providers</li>
+                            <li>Analytics platforms</li>
+                            <li>CDN and storage</li>
+                            <li>API version changes</li>
+                        </ul>
+                    </div>
+
+                    <div class="card" style="border-left: 3px solid var(--accent-purple);">
+                        <div class="card-header">
+                            <div class="card-icon purple">📱</div>
+                            <div><h5>Cross-Platform</h5></div>
+                        </div>
+                        <p style="margin-bottom: 12px;">Users expect consistency across devices.</p>
+                        <ul style="font-size: 13px; margin: 0;">
+                            <li>Mobile responsiveness</li>
+                            <li>Browser compatibility</li>
+                            <li>OS-specific behaviors</li>
+                            <li>Touch vs mouse interactions</li>
+                            <li>Screen size variations</li>
+                            <li>Offline functionality</li>
+                        </ul>
+                    </div>
+
+                    <div class="card" style="border-left: 3px solid var(--accent-purple);">
+                        <div class="card-header">
+                            <div class="card-icon purple">⚡</div>
+                            <div><h5>Performance-Critical</h5></div>
+                        </div>
+                        <p style="margin-bottom: 12px;">Slow is the new broken for users.</p>
+                        <ul style="font-size: 13px; margin: 0;">
+                            <li>Search functionality</li>
+                            <li>Dashboard loading</li>
+                            <li>File uploads/downloads</li>
+                            <li>Report generation</li>
+                            <li>Real-time features</li>
+                            <li>High-traffic pages</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Common Risk Patterns</h3>
+
+                <div class="callout danger">
+                    <div class="callout-icon">🚨</div>
+                    <div class="callout-content">
+                        <div class="callout-title">Red Flags to Watch For</div>
+                        <p class="callout-text">
+                            <strong>New developers on critical code</strong> — Extra review needed<br>
+                            <strong>Last-minute changes</strong> — High-pressure = high-risk<br>
+                            <strong>Major refactoring</strong> — Regression risk is high<br>
+                            <strong>Third-party updates</strong> — Breaking changes happen<br>
+                            <strong>Complex business logic</strong> — More conditions = more bugs<br>
+                            <strong>Insufficient requirements</strong> — Ambiguity breeds defects
+                        </p>
+                    </div>
+                </div>
+
+                <h3>Risk Mitigation Strategies</h3>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Risk Type</th>
+                                <th>Mitigation Strategy</th>
+                                <th>QA Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Payment bugs</td>
+                                <td>Sandbox testing, audit trails</td>
+                                <td>Test all payment paths with real gateway sandbox</td>
+                            </tr>
+                            <tr>
+                                <td>Security vulnerabilities</td>
+                                <td>Security scans, penetration testing</td>
+                                <td>Include security test cases, verify auth boundaries</td>
+                            </tr>
+                            <tr>
+                                <td>Data corruption</td>
+                                <td>Database constraints, validation</td>
+                                <td>Test concurrent operations, verify data integrity</td>
+                            </tr>
+                            <tr>
+                                <td>Integration failures</td>
+                                <td>Circuit breakers, fallbacks</td>
+                                <td>Test failure scenarios, verify graceful degradation</td>
+                            </tr>
+                            <tr>
+                                <td>Performance issues</td>
+                                <td>Load testing, monitoring</td>
+                                <td>Baseline response times, test under load</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ============================================== -->
+            <!-- SECTION 5: BUG REPORTING STANDARDS -->
+            <!-- ============================================== -->
+            <section class="section" id="bug-reporting">
+                <div class="section-header">
+                    <div class="section-number">05</div>
                     <h2>Bug Reporting Standards</h2>
                 </div>
 
@@ -1093,7 +2089,8 @@
                                 • Browser: Chrome 120.0.6099.109<br>
                                 • OS: macOS Sonoma 14.2<br>
                                 • Environment: Staging (staging.app.com)<br>
-                                • App Version: 2.4.1
+                                • App Version: 2.4.1<br>
+                                • User Account: testuser@example.com
                             </div>
                         </div>
 
@@ -1106,12 +2103,22 @@
                                 • Screen recording of reproduction
                             </div>
                         </div>
+
+                        <div class="template-field">
+                            <div class="template-label">Additional Context (Optional)</div>
+                            <div class="template-value">
+                                • API Response: 500 Internal Server Error on /api/payments<br>
+                                • Log entry: "PaymentGateway::AmexProcessor - Invalid merchant config"<br>
+                                • Works fine with Visa and Mastercard<br>
+                                • First noticed after yesterday's deployment
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <h3>Severity vs Priority</h3>
 
-                <p><strong>Severity</strong> measures the technical impact of the bug. <strong>Priority</strong> indicates how urgently it needs to be fixed based on business needs. A bug can be high severity but low priority (and vice versa).</p>
+                <p><strong>Severity</strong> = Technical impact. <strong>Priority</strong> = Business urgency. They're related but not the same.</p>
 
                 <div class="grid-2">
                     <div>
@@ -1123,7 +2130,7 @@
                             </div>
                             <div class="severity-item high">
                                 <div class="severity-label">S2 - High</div>
-                                <div class="severity-desc">Major feature broken, no workaround available</div>
+                                <div class="severity-desc">Major feature broken, significant impact, no workaround</div>
                             </div>
                             <div class="severity-item medium">
                                 <div class="severity-label">S3 - Medium</div>
@@ -1140,11 +2147,11 @@
                         <div class="severity-matrix">
                             <div class="severity-item critical">
                                 <div class="severity-label">P1 - Urgent</div>
-                                <div class="severity-desc">Fix immediately, blocks release or critical business</div>
+                                <div class="severity-desc">Fix immediately, blocks release or critical business function</div>
                             </div>
                             <div class="severity-item high">
                                 <div class="severity-label">P2 - High</div>
-                                <div class="severity-desc">Fix in current sprint, significant impact</div>
+                                <div class="severity-desc">Fix in current sprint, significant business impact</div>
                             </div>
                             <div class="severity-item medium">
                                 <div class="severity-label">P3 - Medium</div>
@@ -1158,396 +2165,828 @@
                     </div>
                 </div>
 
-                <h3>Bug Reporting Best Practices</h3>
-
-                <div class="callout warning">
-                    <div class="callout-icon">⚠️</div>
+                <div class="callout info">
+                    <div class="callout-icon">ℹ️</div>
                     <div class="callout-content">
-                        <div class="callout-title">Avoid These Common Mistakes</div>
-                        <p class="callout-text">
-                            <strong>Vague titles:</strong> "Login doesn't work" → "Login fails with 500 error when password contains special characters"<br><br>
-                            <strong>Missing reproduction steps:</strong> Always include exact steps, even if they seem obvious<br><br>
-                            <strong>No environment info:</strong> "It works on my machine" is never helpful without context<br><br>
-                            <strong>Assuming reproducibility:</strong> Verify you can reproduce the bug before reporting
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Section 5: Tools & Workflow -->
-            <section class="section" id="tools-workflow">
-                <div class="section-header">
-                    <div class="section-number">05</div>
-                    <h2>Tools & Workflow</h2>
-                </div>
-
-                <p>Our QA workflow integrates several tools, each serving a specific purpose. Understanding how they connect helps you investigate issues faster and document findings effectively.</p>
-
-                <div class="grid-3">
-                    <div class="tool-card">
-                        <div class="tool-name">
-                            <span class="card-icon blue" style="width: 28px; height: 28px; font-size: 14px;">📋</span>
-                            Jira
-                        </div>
-                        <div class="tool-description">Central hub for task tracking, bug reporting, and test documentation. Stories, bugs, and test scenarios live here. Use labels and components for organization.</div>
-                    </div>
-
-                    <div class="tool-card">
-                        <div class="tool-name">
-                            <span class="card-icon purple" style="width: 28px; height: 28px; font-size: 14px;">📖</span>
-                            Confluence
-                        </div>
-                        <div class="tool-description">Long-term documentation home. Test strategies, onboarding guides, and knowledge base articles. For content that outlives individual tickets.</div>
-                    </div>
-
-                    <div class="tool-card">
-                        <div class="tool-name">
-                            <span class="card-icon orange" style="width: 28px; height: 28px; font-size: 14px;">🔌</span>
-                            Postman / Swagger
-                        </div>
-                        <div class="tool-description">API testing and exploration. Validate endpoints, test edge cases, and verify response structures. Essential for backend validation.</div>
-                    </div>
-
-                    <div class="tool-card">
-                        <div class="tool-name">
-                            <span class="card-icon green" style="width: 28px; height: 28px; font-size: 14px;">⚙️</span>
-                            Jenkins
-                        </div>
-                        <div class="tool-description">CI/CD pipeline and environment management. Trigger deployments, run automated tests, and check build status before testing.</div>
-                    </div>
-
-                    <div class="tool-card">
-                        <div class="tool-name">
-                            <span class="card-icon teal" style="width: 28px; height: 28px; font-size: 14px;">📊</span>
-                            Grafana
-                        </div>
-                        <div class="tool-description">Logs monitoring and observability. Track API calls, errors, and system alerts. Your first stop when investigating production issues.</div>
-                    </div>
-
-                    <div class="tool-card">
-                        <div class="tool-name">
-                            <span class="card-icon red" style="width: 28px; height: 28px; font-size: 14px;">🗄️</span>
-                            DBeaver
-                        </div>
-                        <div class="tool-description">Database client for validation and investigation. Verify data integrity, check stored values, and investigate data-related bugs.</div>
+                        <div class="callout-title">Example: High Severity, Low Priority</div>
+                        <p class="callout-text">A crash in an admin-only feature used once a quarter is S1 (Critical severity) but might be P3 (Medium priority) if it's not blocking any current work. Conversely, a minor UI bug (S4) on the homepage during a marketing campaign might be P1 (Urgent).</p>
                     </div>
                 </div>
 
-                <h3>How They Connect</h3>
+                <h3>Bug Reporting Anti-Patterns</h3>
 
-                <div class="code-block">
-<strong>Typical Investigation Flow:</strong>
+                <div class="grid-2">
+                    <div class="card" style="border-left: 3px solid var(--accent-red);">
+                        <h5 style="color: var(--accent-red);">❌ Bad Bug Reports</h5>
+                        <ul style="font-size: 13px; margin: 0;">
+                            <li><strong>"It doesn't work"</strong> — What doesn't work?</li>
+                            <li><strong>"Login is broken"</strong> — How? When? For whom?</li>
+                            <li><strong>No reproduction steps</strong> — Can't fix what can't be reproduced</li>
+                            <li><strong>Missing environment</strong> — "Works on my machine"</li>
+                            <li><strong>No attachments</strong> — Screenshots are worth 1000 words</li>
+                            <li><strong>Multiple bugs in one ticket</strong> — Track separately</li>
+                        </ul>
+                    </div>
 
-Bug Reported in Jira
-        ↓
-Check UI Behavior → Browser Dev Tools
-        ↓
-Validate API Response → Postman / Swagger
-        ↓
-Review Logs & Errors → Grafana
-        ↓
-Check Data State → DBeaver
-        ↓
-Document Findings → Update Jira Ticket
+                    <div class="card" style="border-left: 3px solid var(--accent-green);">
+                        <h5 style="color: var(--accent-green);">✓ Good Bug Reports</h5>
+                        <ul style="font-size: 13px; margin: 0;">
+                            <li>Clear, specific title</li>
+                            <li>Step-by-step reproduction</li>
+                            <li>Expected vs actual clearly stated</li>
+                            <li>Environment details included</li>
+                            <li>Screenshots/recordings attached</li>
+                            <li>Investigation notes when available</li>
+                        </ul>
+                    </div>
                 </div>
-            </section>
 
-            <!-- Section 6: Debugging & Investigation -->
-            <section class="section" id="debugging">
-                <div class="section-header">
-                    <div class="section-number">06</div>
-                    <h2>Debugging & Investigation</h2>
-                </div>
+                <h3>Investigation Before Reporting</h3>
 
-                <p>Effective debugging is about systematic elimination. Start from what you can observe (UI), then dig deeper into the stack until you find the root cause.</p>
-
-                <h3>Investigation Workflow</h3>
+                <p>When possible, do preliminary investigation before reporting. This speeds up resolution significantly.</p>
 
                 <div class="workflow-step">
                     <div class="step-number">1</div>
                     <div class="step-content">
-                        <div class="step-title">Check UI Behavior</div>
-                        <div class="step-description">Reproduce the issue. Open browser dev tools. Check for console errors, failed network requests, and unexpected UI states. Screenshot everything relevant.</div>
+                        <div class="step-title">Reproduce consistently</div>
+                        <div class="step-description">Can you make it happen every time? What's the minimum steps?</div>
                     </div>
                 </div>
 
                 <div class="workflow-step">
                     <div class="step-number">2</div>
                     <div class="step-content">
-                        <div class="step-title">Validate API Responses</div>
-                        <div class="step-description">Use Postman or browser Network tab. Check request payloads, response codes, and response bodies. Compare expected vs actual data. Test the same request with different parameters.</div>
+                        <div class="step-title">Check browser console</div>
+                        <div class="step-description">Any JavaScript errors? Failed network requests? Include these in the report.</div>
                     </div>
                 </div>
 
                 <div class="workflow-step">
                     <div class="step-number">3</div>
                     <div class="step-content">
-                        <div class="step-title">Review Application Logs</div>
-                        <div class="step-description">Open Grafana. Search for errors around the timestamp of the issue. Look for stack traces, warning messages, and failed service calls. Note any correlation IDs or request IDs.</div>
+                        <div class="step-title">Verify across browsers/devices</div>
+                        <div class="step-description">Is it browser-specific? Device-specific? This narrows down the cause.</div>
                     </div>
                 </div>
 
                 <div class="workflow-step">
                     <div class="step-number">4</div>
                     <div class="step-content">
-                        <div class="step-title">Check Database State</div>
-                        <div class="step-description">Use DBeaver to verify data. Is the record in the expected state? Are foreign keys correct? Did a transaction complete? Sometimes the bug is in the data, not the code.</div>
+                        <div class="step-title">Check logs (Grafana)</div>
+                        <div class="step-description">Look for errors around the timestamp. Include correlation IDs if available.</div>
                     </div>
                 </div>
 
                 <div class="workflow-step">
                     <div class="step-number">5</div>
                     <div class="step-content">
-                        <div class="step-title">Document Everything</div>
-                        <div class="step-description">Add all findings to the bug report: API responses, log snippets, database queries, screenshots. The more context, the faster the fix.</div>
-                    </div>
-                </div>
-
-                <div class="callout tip">
-                    <div class="callout-icon">💡</div>
-                    <div class="callout-content">
-                        <div class="callout-title">Investigation Tip</div>
-                        <p class="callout-text">When reporting a bug with investigation details, include: the API endpoint and response, relevant log entries (with timestamps), database state, and your hypothesis about the root cause. Developers appreciate bugs that come with diagnosis, not just symptoms.</p>
+                        <div class="step-title">Verify data state (DBeaver)</div>
+                        <div class="step-description">Is the data correct in the database? Include relevant queries.</div>
                     </div>
                 </div>
             </section>
 
-            <!-- Section 7: Documentation Strategy -->
-            <section class="section" id="documentation-strategy">
+            <!-- ============================================== -->
+            <!-- SECTION 6: TESTING CHECKLISTS -->
+            <!-- ============================================== -->
+            <section class="section" id="checklists">
+                <div class="section-header">
+                    <div class="section-number">06</div>
+                    <h2>Testing Checklists</h2>
+                </div>
+
+                <p>Interactive checklists for common testing scenarios. Click items to mark them complete. Progress is saved in your browser.</p>
+
+                <!-- Release Readiness Checklist -->
+                <div class="checklist-container" data-checklist="release">
+                    <div class="checklist-header">
+                        <div class="checklist-title">
+                            <span>🚀</span> Release Readiness Checklist
+                        </div>
+                        <div class="checklist-progress">
+                            <span class="progress-text">0/15 complete</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="checklist-body">
+                        <div class="checklist-category">
+                            <div class="category-title">Pre-Release Verification</div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">All user stories tested and passed</div>
+                                    <div class="checklist-text-sub">Verify all acceptance criteria met</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Regression testing completed</div>
+                                    <div class="checklist-text-sub">Run full regression suite, document results</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">All critical/high bugs resolved</div>
+                                    <div class="checklist-text-sub">No P1/P2 bugs open for this release</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Known issues documented</div>
+                                    <div class="checklist-text-sub">List any accepted risks or deferred bugs</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="checklist-category">
+                            <div class="category-title">Environment & Deployment</div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Staging environment matches production config</div>
+                                    <div class="checklist-text-sub">Database, APIs, feature flags aligned</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Database migrations tested</div>
+                                    <div class="checklist-text-sub">Run on staging, verify data integrity</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Rollback plan verified</div>
+                                    <div class="checklist-text-sub">Can we revert if something goes wrong?</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="checklist-category">
+                            <div class="category-title">Smoke Test Post-Deploy</div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Application loads successfully</div>
+                                    <div class="checklist-text-sub">Homepage, critical pages accessible</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">User authentication works</div>
+                                    <div class="checklist-text-sub">Login, logout, session management</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Core business flow functional</div>
+                                    <div class="checklist-text-sub">Primary user journey end-to-end</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Payment processing verified</div>
+                                    <div class="checklist-text-sub">Test transaction in production (if applicable)</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Third-party integrations operational</div>
+                                    <div class="checklist-text-sub">Email, SMS, analytics, payment gateways</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Error monitoring active</div>
+                                    <div class="checklist-text-sub">Grafana, Sentry, or equivalent receiving data</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Release notes published</div>
+                                    <div class="checklist-text-sub">Stakeholders notified of changes</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="checklist-actions">
+                        <button class="btn btn-secondary" onclick="resetChecklist(this)">Reset Checklist</button>
+                    </div>
+                </div>
+
+                <!-- Sprint Testing Checklist -->
+                <div class="checklist-container" data-checklist="sprint">
+                    <div class="checklist-header">
+                        <div class="checklist-title">
+                            <span>🏃</span> Sprint Testing Checklist
+                        </div>
+                        <div class="checklist-progress">
+                            <span class="progress-text">0/12 complete</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="checklist-body">
+                        <div class="checklist-category">
+                            <div class="category-title">Story Validation</div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Requirements are clear and complete</div>
+                                    <div class="checklist-text-sub">No ambiguous acceptance criteria</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Test scenarios documented in ticket</div>
+                                    <div class="checklist-text-sub">Happy path + edge cases + negative cases</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Test data prepared</div>
+                                    <div class="checklist-text-sub">Accounts, sample data, test credentials ready</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="checklist-category">
+                            <div class="category-title">Functional Testing</div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Happy path tested</div>
+                                    <div class="checklist-text-sub">Expected user flow works correctly</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Edge cases covered</div>
+                                    <div class="checklist-text-sub">Boundary values, limits, special characters</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Negative scenarios verified</div>
+                                    <div class="checklist-text-sub">Invalid inputs handled gracefully</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Error messages are user-friendly</div>
+                                    <div class="checklist-text-sub">Clear, actionable, no technical jargon</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="checklist-category">
+                            <div class="category-title">Integration & Regression</div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">API contracts validated</div>
+                                    <div class="checklist-text-sub">Request/response matches specification</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Related features still work</div>
+                                    <div class="checklist-text-sub">No regressions in connected functionality</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Data integrity maintained</div>
+                                    <div class="checklist-text-sub">Database state correct after operations</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Bugs logged with full details</div>
+                                    <div class="checklist-text-sub">Reproduction steps, screenshots, severity</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="checklist-actions">
+                        <button class="btn btn-secondary" onclick="resetChecklist(this)">Reset Checklist</button>
+                    </div>
+                </div>
+
+                <!-- Cross-Browser Checklist -->
+                <div class="checklist-container" data-checklist="browser">
+                    <div class="checklist-header">
+                        <div class="checklist-title">
+                            <span>🌐</span> Cross-Browser Testing Checklist
+                        </div>
+                        <div class="checklist-progress">
+                            <span class="progress-text">0/16 complete</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="checklist-body">
+                        <div class="checklist-category">
+                            <div class="category-title">Desktop Browsers</div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Chrome (latest)</div>
+                                    <div class="checklist-text-sub">Primary browser — full test coverage</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Firefox (latest)</div>
+                                    <div class="checklist-text-sub">Critical paths and rendering</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Safari (latest)</div>
+                                    <div class="checklist-text-sub">macOS — watch for webkit-specific issues</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Edge (latest)</div>
+                                    <div class="checklist-text-sub">Windows users — Chromium-based</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="checklist-category">
+                            <div class="category-title">Mobile Browsers</div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">iOS Safari</div>
+                                    <div class="checklist-text-sub">iPhone — check viewport, gestures</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Chrome Mobile (Android)</div>
+                                    <div class="checklist-text-sub">Android phones — responsive behavior</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Tablet view (iPad/Android)</div>
+                                    <div class="checklist-text-sub">Mid-size breakpoints, orientation</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="checklist-category">
+                            <div class="category-title">Visual & Functional Checks</div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Layout renders correctly</div>
+                                    <div class="checklist-text-sub">No broken layouts, overlapping elements</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Fonts load properly</div>
+                                    <div class="checklist-text-sub">No FOUT, correct font rendering</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Images display correctly</div>
+                                    <div class="checklist-text-sub">Responsive images, no distortion</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Forms function properly</div>
+                                    <div class="checklist-text-sub">Input types, validation, submission</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">JavaScript functionality works</div>
+                                    <div class="checklist-text-sub">Interactions, modals, dynamic content</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Scrolling behavior correct</div>
+                                    <div class="checklist-text-sub">Smooth scroll, fixed elements, infinite scroll</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Touch interactions work (mobile)</div>
+                                    <div class="checklist-text-sub">Tap, swipe, pinch-to-zoom</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">No console errors</div>
+                                    <div class="checklist-text-sub">Check dev tools for JS errors</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="checklist-actions">
+                        <button class="btn btn-secondary" onclick="resetChecklist(this)">Reset Checklist</button>
+                    </div>
+                </div>
+
+                <!-- Mobile Testing Checklist -->
+                <div class="checklist-container" data-checklist="mobile">
+                    <div class="checklist-header">
+                        <div class="checklist-title">
+                            <span>📱</span> Mobile Testing Checklist
+                        </div>
+                        <div class="checklist-progress">
+                            <span class="progress-text">0/14 complete</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="checklist-body">
+                        <div class="checklist-category">
+                            <div class="category-title">Responsive Design</div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Small phone (320-375px)</div>
+                                    <div class="checklist-text-sub">iPhone SE, older Android devices</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Standard phone (375-414px)</div>
+                                    <div class="checklist-text-sub">iPhone 12/13/14, most Android</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Large phone (414-480px)</div>
+                                    <div class="checklist-text-sub">iPhone Pro Max, large Android</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Tablet portrait (768px)</div>
+                                    <div class="checklist-text-sub">iPad portrait mode</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Tablet landscape (1024px)</div>
+                                    <div class="checklist-text-sub">iPad landscape mode</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="checklist-category">
+                            <div class="category-title">Mobile-Specific Behavior</div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Orientation change handled</div>
+                                    <div class="checklist-text-sub">Portrait ↔ landscape transitions smoothly</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Keyboard doesn't break layout</div>
+                                    <div class="checklist-text-sub">Form inputs visible when keyboard opens</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Touch targets are large enough</div>
+                                    <div class="checklist-text-sub">Minimum 44x44px for tappable elements</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">No horizontal scroll on body</div>
+                                    <div class="checklist-text-sub">Content fits within viewport width</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="checklist-category">
+                            <div class="category-title">Network & Performance</div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Works on slow connection (3G)</div>
+                                    <div class="checklist-text-sub">Test with throttling in dev tools</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Handles offline gracefully</div>
+                                    <div class="checklist-text-sub">Appropriate error messages, cached content</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Images optimized for mobile</div>
+                                    <div class="checklist-text-sub">Responsive images, lazy loading works</div>
+                                </div>
+                            </div>
+                            <div class="checklist-item" onclick="toggleCheckItem(this)">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-text">
+                                    <div class="checklist-text-main">Page load time acceptable</div>
+                                    <div class="checklist-text-sub">Target: < 3s on 4G connection</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="checklist-actions">
+                        <button class="btn btn-secondary" onclick="resetChecklist(this)">Reset Checklist</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================== -->
+            <!-- SECTION 7: TOOLS & FRAMEWORKS -->
+            <!-- ============================================== -->
+            <section class="section" id="tools-frameworks">
                 <div class="section-header">
                     <div class="section-number">07</div>
-                    <h2>Documentation Strategy</h2>
+                    <h2>QA Tools & Frameworks</h2>
                 </div>
 
-                <p>We follow a hybrid documentation approach that balances practicality with long-term knowledge preservation.</p>
+                <p>The right tools make quality work possible. This section covers our core toolset and how each fits into the QA workflow.</p>
 
-                <h3>The Hybrid Approach</h3>
+                <h3>Project Management & Documentation</h3>
 
                 <div class="grid-2">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-icon blue">📋</div>
-                            <div>
-                                <h5>Ticket-Level Documentation</h5>
-                            </div>
+                    <div class="tool-card">
+                        <div class="tool-name">
+                            <span class="card-icon blue" style="width: 32px; height: 32px; font-size: 16px;">📋</span>
+                            Jira
                         </div>
-                        <p>Test scenarios, acceptance criteria, and bug details live directly in Jira tickets. This keeps documentation close to the work, where people actually use it. Updated naturally as part of the workflow.</p>
-                        <br>
-                        <p><strong>Use for:</strong> Feature-specific tests, bug reproduction steps, sprint-level documentation</p>
+                        <div class="tool-description" style="margin-bottom: 12px;">Central hub for all QA work tracking.</div>
+                        <ul style="font-size: 13px; color: var(--text-muted); margin: 0;">
+                            <li><strong>Bug tracking:</strong> Report, prioritize, and track defects</li>
+                            <li><strong>Test documentation:</strong> Scenarios in story tickets</li>
+                            <li><strong>Sprint planning:</strong> QA task estimation</li>
+                            <li><strong>Traceability:</strong> Link bugs to stories</li>
+                            <li><strong>Dashboards:</strong> Quality metrics and reports</li>
+                        </ul>
                     </div>
 
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-icon purple">📚</div>
-                            <div>
-                                <h5>Central Documentation</h5>
-                            </div>
+                    <div class="tool-card">
+                        <div class="tool-name">
+                            <span class="card-icon purple" style="width: 32px; height: 32px; font-size: 16px;">📖</span>
+                            Confluence
                         </div>
-                        <p>Confluence houses reusable knowledge: test strategies, onboarding guides, architecture overviews, and standards (like this QA Hub). Content that serves multiple teams and outlives individual features.</p>
-                        <br>
-                        <p><strong>Use for:</strong> Process documentation, team standards, cross-project knowledge</p>
+                        <div class="tool-description" style="margin-bottom: 12px;">Long-term documentation and knowledge base.</div>
+                        <ul style="font-size: 13px; color: var(--text-muted); margin: 0;">
+                            <li><strong>Test strategies:</strong> Project-level documentation</li>
+                            <li><strong>Onboarding guides:</strong> New team member resources</li>
+                            <li><strong>Standards:</strong> QA processes and templates</li>
+                            <li><strong>Retrospectives:</strong> Lessons learned</li>
+                            <li><strong>Architecture docs:</strong> System context for testing</li>
+                        </ul>
                     </div>
                 </div>
 
-                <div class="callout warning">
-                    <div class="callout-icon">⚠️</div>
+                <h3>API Testing</h3>
+
+                <div class="grid-2">
+                    <div class="tool-card">
+                        <div class="tool-name">
+                            <span class="card-icon orange" style="width: 32px; height: 32px; font-size: 16px;">🔌</span>
+                            Postman
+                        </div>
+                        <div class="tool-description" style="margin-bottom: 12px;">API development and testing platform.</div>
+                        <ul style="font-size: 13px; color: var(--text-muted); margin: 0;">
+                            <li><strong>Manual API testing:</strong> Explore and validate endpoints</li>
+                            <li><strong>Collections:</strong> Organized test suites</li>
+                            <li><strong>Environments:</strong> Dev/staging/prod configs</li>
+                            <li><strong>Pre/post scripts:</strong> Dynamic data, assertions</li>
+                            <li><strong>Newman CLI:</strong> Run in CI/CD pipelines</li>
+                            <li><strong>Team sharing:</strong> Shared workspaces</li>
+                        </ul>
+                    </div>
+
+                    <div class="tool-card">
+                        <div class="tool-name">
+                            <span class="card-icon green" style="width: 32px; height: 32px; font-size: 16px;">📜</span>
+                            Swagger / OpenAPI
+                        </div>
+                        <div class="tool-description" style="margin-bottom: 12px;">API documentation and exploration.</div>
+                        <ul style="font-size: 13px; color: var(--text-muted); margin: 0;">
+                            <li><strong>API contracts:</strong> Validate against spec</li>
+                            <li><strong>Try-it-out:</strong> Quick endpoint testing</li>
+                            <li><strong>Schema validation:</strong> Request/response structures</li>
+                            <li><strong>Code generation:</strong> Client SDK creation</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Monitoring & Debugging</h3>
+
+                <div class="grid-2">
+                    <div class="tool-card">
+                        <div class="tool-name">
+                            <span class="card-icon teal" style="width: 32px; height: 32px; font-size: 16px;">📊</span>
+                            Grafana
+                        </div>
+                        <div class="tool-description" style="margin-bottom: 12px;">Observability and log monitoring platform.</div>
+                        <ul style="font-size: 13px; color: var(--text-muted); margin: 0;">
+                            <li><strong>Log search:</strong> Find errors by timestamp, user, endpoint</li>
+                            <li><strong>Dashboards:</strong> API performance, error rates</li>
+                            <li><strong>Alerts:</strong> Real-time issue notification</li>
+                            <li><strong>Trace correlation:</strong> Follow requests across services</li>
+                            <li><strong>Bug investigation:</strong> Find root cause evidence</li>
+                        </ul>
+                    </div>
+
+                    <div class="tool-card">
+                        <div class="tool-name">
+                            <span class="card-icon red" style="width: 32px; height: 32px; font-size: 16px;">🗄️</span>
+                            DBeaver
+                        </div>
+                        <div class="tool-description" style="margin-bottom: 12px;">Universal database tool for data validation.</div>
+                        <ul style="font-size: 13px; color: var(--text-muted); margin: 0;">
+                            <li><strong>Data verification:</strong> Check stored values</li>
+                            <li><strong>Test data setup:</strong> Create/modify test records</li>
+                            <li><strong>Bug investigation:</strong> Verify data integrity</li>
+                            <li><strong>Query results:</strong> Export for bug reports</li>
+                            <li><strong>Schema browsing:</strong> Understand data models</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>CI/CD & Automation</h3>
+
+                <div class="grid-2">
+                    <div class="tool-card">
+                        <div class="tool-name">
+                            <span class="card-icon blue" style="width: 32px; height: 32px; font-size: 16px;">⚙️</span>
+                            Jenkins
+                        </div>
+                        <div class="tool-description" style="margin-bottom: 12px;">CI/CD automation server.</div>
+                        <ul style="font-size: 13px; color: var(--text-muted); margin: 0;">
+                            <li><strong>Build pipelines:</strong> Monitor deployment status</li>
+                            <li><strong>Test automation:</strong> Trigger test suites</li>
+                            <li><strong>Environment management:</strong> Deploy test environments</li>
+                            <li><strong>Test reports:</strong> Automated test results</li>
+                            <li><strong>Scheduled jobs:</strong> Nightly regression runs</li>
+                        </ul>
+                    </div>
+
+                    <div class="tool-card">
+                        <div class="tool-name">
+                            <span class="card-icon purple" style="width: 32px; height: 32px; font-size: 16px;">🎭</span>
+                            Playwright / Cypress
+                        </div>
+                        <div class="tool-description" style="margin-bottom: 12px;">Modern E2E test automation frameworks.</div>
+                        <ul style="font-size: 13px; color: var(--text-muted); margin: 0;">
+                            <li><strong>Cross-browser testing:</strong> Chrome, Firefox, Safari, Edge</li>
+                            <li><strong>Auto-wait:</strong> Built-in smart waiting</li>
+                            <li><strong>Screenshots/video:</strong> Failure evidence</li>
+                            <li><strong>API mocking:</strong> Isolate frontend tests</li>
+                            <li><strong>CI integration:</strong> Run in pipelines</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Browser Developer Tools</h3>
+
+                <div class="callout info">
+                    <div class="callout-icon">🔧</div>
                     <div class="callout-content">
-                        <div class="callout-title">Documentation Principle</div>
-                        <p class="callout-text"><strong>"Documentation should be where people actually use it."</strong><br><br>
-                        Don't document test scenarios in Confluence if everyone tests from Jira. Don't put architecture decisions in Jira if they inform multiple projects.<br><br>
-                        <strong>"Outdated documentation is worse than no documentation."</strong><br><br>
-                        If you can't commit to maintaining it, don't create it. Misleading documentation causes bugs.</p>
+                        <div class="callout-title">Essential DevTools Features for QA</div>
+                        <p class="callout-text">
+                            <strong>Elements:</strong> Inspect HTML/CSS, debug layout issues<br>
+                            <strong>Console:</strong> Check for JavaScript errors<br>
+                            <strong>Network:</strong> Monitor API calls, response times, failures<br>
+                            <strong>Application:</strong> Inspect cookies, local storage, session data<br>
+                            <strong>Performance:</strong> Identify bottlenecks, rendering issues<br>
+                            <strong>Device Mode:</strong> Test responsive design, simulate mobile
+                        </p>
                     </div>
                 </div>
 
-                <h3>What Goes Where?</h3>
+                <h3>Tool Selection Guide</h3>
 
                 <div class="table-wrapper">
                     <table>
                         <thead>
                             <tr>
-                                <th>Content Type</th>
-                                <th>Location</th>
-                                <th>Reason</th>
+                                <th>Task</th>
+                                <th>Primary Tool</th>
+                                <th>Alternative</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Test scenarios for a user story</td>
-                                <td>Jira ticket</td>
-                                <td>Directly tied to the work item</td>
+                                <td>Track bugs & tests</td>
+                                <td>Jira</td>
+                                <td>Azure DevOps, Linear</td>
                             </tr>
                             <tr>
-                                <td>Bug reproduction steps</td>
-                                <td>Jira bug ticket</td>
-                                <td>Context for developers</td>
+                                <td>Test APIs manually</td>
+                                <td>Postman</td>
+                                <td>Insomnia, curl</td>
                             </tr>
                             <tr>
-                                <td>QA onboarding guide</td>
-                                <td>Confluence</td>
-                                <td>Reused across new team members</td>
+                                <td>Automate E2E tests</td>
+                                <td>Playwright</td>
+                                <td>Cypress, Selenium</td>
                             </tr>
                             <tr>
-                                <td>Test environment setup</td>
-                                <td>Confluence</td>
-                                <td>Reference for entire team</td>
+                                <td>Monitor logs</td>
+                                <td>Grafana</td>
+                                <td>Datadog, Splunk</td>
                             </tr>
                             <tr>
-                                <td>Release testing checklist</td>
-                                <td>Confluence (template)</td>
-                                <td>Copied per release, consistent process</td>
+                                <td>Query databases</td>
+                                <td>DBeaver</td>
+                                <td>DataGrip, pgAdmin</td>
                             </tr>
                             <tr>
-                                <td>API test collections</td>
-                                <td>Postman (shared workspace)</td>
-                                <td>Executable, version-controlled</td>
+                                <td>Load testing</td>
+                                <td>k6</td>
+                                <td>JMeter, Locust</td>
+                            </tr>
+                            <tr>
+                                <td>Security scanning</td>
+                                <td>OWASP ZAP</td>
+                                <td>Burp Suite</td>
+                            </tr>
+                            <tr>
+                                <td>Accessibility testing</td>
+                                <td>axe DevTools</td>
+                                <td>WAVE, Lighthouse</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-            </section>
 
-            <!-- Section 8: Release Notes -->
-            <section class="section" id="release-notes">
-                <div class="section-header">
-                    <div class="section-number">08</div>
-                    <h2>Release Notes & Traceability</h2>
-                </div>
+                <h3>Recommended Learning Path</h3>
 
-                <p>Release notes create a historical record of what changed and when. They're invaluable for debugging production issues, auditing changes, and communicating with stakeholders.</p>
-
-                <h3>Why Release Notes Matter</h3>
-
-                <ul>
-                    <li><strong>Visibility:</strong> Stakeholders know what's shipping without reading tickets</li>
-                    <li><strong>Traceability:</strong> Link changes back to requirements and bugs</li>
-                    <li><strong>Debugging:</strong> "When did this behavior change?" becomes answerable</li>
-                    <li><strong>Compliance:</strong> Audit trail for regulated environments</li>
-                </ul>
-
-                <h3>Release Notes Structure</h3>
-
-                <div class="code-block">
-<strong>Release v2.4.0</strong>
-<em>Released: January 15, 2024</em>
-
-<strong>✨ New Features</strong>
-• [PROJ-123] Added bulk export functionality to reports
-• [PROJ-145] Introduced dark mode for dashboard
-
-<strong>🐛 Bug Fixes</strong>
-• [PROJ-167] Fixed checkout failure with Amex cards
-• [PROJ-172] Resolved incorrect tax calculation for EU customers
-
-<strong>⚡ Improvements</strong>
-• [PROJ-180] Improved page load time by 40% on dashboard
-• [PROJ-183] Enhanced error messages for form validation
-
-<strong>⚠️ Known Issues</strong>
-• [PROJ-190] PDF export may timeout for reports > 10,000 rows (workaround: export in batches)
-
-<strong>📋 Testing Notes</strong>
-• Regression: Full regression completed on Staging
-• Focus areas: Payment processing, export functionality
-• Test coverage: 94% on new features
-                </div>
-
-                <div class="callout info">
-                    <div class="callout-icon">ℹ️</div>
-                    <div class="callout-content">
-                        <div class="callout-title">Tip: Automate Where Possible</div>
-                        <p class="callout-text">Use Jira queries or release management tools to generate release notes from resolved tickets. Manual release notes are prone to omissions and errors.</p>
+                <div class="grid-3">
+                    <div class="metric-card">
+                        <div class="metric-value" style="font-size: 24px;">Week 1-2</div>
+                        <div class="metric-label">Jira, Postman, DevTools basics</div>
                     </div>
-                </div>
-            </section>
-
-            <!-- Section 9: QA Mindset -->
-            <section class="section" id="qa-mindset">
-                <div class="section-header">
-                    <div class="section-number">09</div>
-                    <h2>QA Mindset</h2>
-                </div>
-
-                <p>QA is not just a role or a phase — it's a mindset. Everyone on the team shares responsibility for quality, but QA engineers bring a unique perspective that's worth cultivating.</p>
-
-                <h3>Core Principles</h3>
-
-                <div class="pillar">
-                    <h4>Think Like a User, Break Like a Hacker</h4>
-                    <p>Users don't follow happy paths. They misclick, use outdated browsers, have slow connections, and do unexpected things. Test the product the way it will actually be used, not the way it was designed to be used.</p>
-                </div>
-
-                <div class="pillar">
-                    <h4>Raise Risks Early</h4>
-                    <p>If you see a potential problem — unclear requirements, risky architecture, tight timeline — speak up early. A concern raised in planning is a conversation; a concern raised before release is a crisis.</p>
-                </div>
-
-                <div class="pillar">
-                    <h4>Focus on Delivering Quality, Not Just Testing</h4>
-                    <p>Your job isn't to "test everything" or "find all bugs." Your job is to help the team ship quality software. Sometimes that means testing; sometimes it means asking the right questions in a design review.</p>
-                </div>
-
-                <div class="pillar">
-                    <h4>Quality is Everyone's Responsibility</h4>
-                    <p>QA doesn't own quality — we advocate for it. Developers write unit tests. Product managers clarify requirements. DevOps ensures stable environments. We're all in this together.</p>
-                </div>
-
-                <div class="card" style="background: linear-gradient(135deg, rgba(88, 166, 255, 0.1), rgba(163, 113, 247, 0.1)); border-color: var(--accent-blue);">
-                    <h4 style="margin-top: 0; color: var(--accent-blue);">The Questions QA Should Always Ask</h4>
-                    <ul style="margin-bottom: 0;">
-                        <li>What happens if this fails?</li>
-                        <li>What are users most likely to do wrong?</li>
-                        <li>What edge cases aren't covered by requirements?</li>
-                        <li>How will we know if this is working in production?</li>
-                        <li>What's the blast radius if we ship a bug here?</li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- Section 10: Collaboration -->
-            <section class="section" id="collaboration">
-                <div class="section-header">
-                    <div class="section-number">10</div>
-                    <h2>Collaboration & Communication</h2>
-                </div>
-
-                <p>Quality is a team sport. Effective communication multiplies the impact of good QA work.</p>
-
-                <h3>Working with Developers</h3>
-
-                <ul>
-                    <li><strong>Be a partner, not a gatekeeper:</strong> We're on the same team, working toward the same goal. Frame feedback constructively.</li>
-                    <li><strong>Provide context, not just bugs:</strong> Instead of "it's broken," explain what you did, what you expected, and what happened. Include logs, screenshots, and reproduction steps.</li>
-                    <li><strong>Engage early:</strong> Don't wait until the feature is "ready for QA." Join design discussions. Review PRs for testability. Ask questions during refinement.</li>
-                    <li><strong>Respect expertise:</strong> Developers know the code; you know the user perspective. Both views are valuable.</li>
-                </ul>
-
-                <h3>Writing Actionable Bug Reports</h3>
-
-                <div class="grid-2">
-                    <div class="card" style="border-color: var(--accent-red);">
-                        <h5 style="color: var(--accent-red);">❌ Not Actionable</h5>
-                        <p>"Login doesn't work sometimes"</p>
+                    <div class="metric-card">
+                        <div class="metric-value" style="font-size: 24px;">Week 3-4</div>
+                        <div class="metric-label">Grafana, DBeaver, API testing depth</div>
                     </div>
-                    <div class="card" style="border-color: var(--accent-green);">
-                        <h5 style="color: var(--accent-green);">✓ Actionable</h5>
-                        <p>"Login fails with 500 error when password contains '&' character. Tested on Chrome 120, staging environment. See attached network trace."</p>
-                    </div>
-                </div>
-
-                <h3>Supporting the Team</h3>
-
-                <ul>
-                    <li><strong>Be available:</strong> When developers have questions about expected behavior or test scenarios, respond promptly.</li>
-                    <li><strong>Share knowledge:</strong> Found a useful debugging technique? Document it. Discovered a common pattern of bugs? Share it in a team sync.</li>
-                    <li><strong>Celebrate wins:</strong> Quality improvements are worth recognizing. When a release goes smoothly, acknowledge the team effort.</li>
-                </ul>
-
-                <div class="callout success">
-                    <div class="callout-icon">✓</div>
-                    <div class="callout-content">
-                        <div class="callout-title">The QA Partnership Mindset</div>
-                        <p class="callout-text">The best QA-developer relationships are built on mutual respect and shared goals. We're not here to catch developers making mistakes — we're here to help the team ship software we're all proud of.</p>
+                    <div class="metric-card">
+                        <div class="metric-value" style="font-size: 24px;">Month 2+</div>
+                        <div class="metric-label">Automation frameworks, CI/CD</div>
                     </div>
                 </div>
             </section>
@@ -1564,9 +3003,7 @@ Document Findings → Update Jira Ticket
         // Smooth scroll for navigation links
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function(e) {
-                // Remove active class from all links
                 document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                // Add active class to clicked link
                 this.classList.add('active');
             });
         });
@@ -1590,6 +3027,77 @@ Document Findings → Update Jira Ticket
                     link.classList.add('active');
                 }
             });
+        });
+
+        // Expandable sections
+        function toggleExpand(header) {
+            const expandable = header.parentElement;
+            expandable.classList.toggle('open');
+        }
+
+        // Checklist functionality
+        function toggleCheckItem(item) {
+            item.classList.toggle('checked');
+            updateChecklistProgress(item.closest('.checklist-container'));
+            saveChecklistState();
+        }
+
+        function updateChecklistProgress(container) {
+            const items = container.querySelectorAll('.checklist-item');
+            const checked = container.querySelectorAll('.checklist-item.checked');
+            const total = items.length;
+            const completed = checked.length;
+            const percentage = (completed / total) * 100;
+
+            container.querySelector('.progress-text').textContent = `${completed}/${total} complete`;
+            container.querySelector('.progress-fill').style.width = `${percentage}%`;
+        }
+
+        function resetChecklist(button) {
+            const container = button.closest('.checklist-container');
+            container.querySelectorAll('.checklist-item').forEach(item => {
+                item.classList.remove('checked');
+            });
+            updateChecklistProgress(container);
+            saveChecklistState();
+        }
+
+        function saveChecklistState() {
+            const state = {};
+            document.querySelectorAll('.checklist-container').forEach(container => {
+                const name = container.dataset.checklist;
+                const items = [];
+                container.querySelectorAll('.checklist-item').forEach((item, index) => {
+                    items.push(item.classList.contains('checked'));
+                });
+                state[name] = items;
+            });
+            localStorage.setItem('qa-hub-checklists', JSON.stringify(state));
+        }
+
+        function loadChecklistState() {
+            const saved = localStorage.getItem('qa-hub-checklists');
+            if (saved) {
+                const state = JSON.parse(saved);
+                Object.keys(state).forEach(name => {
+                    const container = document.querySelector(`[data-checklist="${name}"]`);
+                    if (container) {
+                        const items = container.querySelectorAll('.checklist-item');
+                        state[name].forEach((checked, index) => {
+                            if (items[index] && checked) {
+                                items[index].classList.add('checked');
+                            }
+                        });
+                        updateChecklistProgress(container);
+                    }
+                });
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadChecklistState();
+            document.querySelectorAll('.checklist-container').forEach(updateChecklistProgress);
         });
     </script>
 </body>
